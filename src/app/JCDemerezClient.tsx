@@ -71,7 +71,6 @@ export default function JCDemerezClient() {
     marginBottom: 'clamp(0.2rem, 0.6vmin, 0.4rem)',
     opacity: 0.5,
     transition: 'opacity 0.3s',
-    cursor: 'default',
   };
 
   const sectionSubtitle: React.CSSProperties = {
@@ -135,7 +134,7 @@ export default function JCDemerezClient() {
             }}
           >
             <h2
-              style={sectionTitle}
+              style={{...sectionTitle, cursor: 'pointer'}}
               onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.5')}
             >Adagium</h2>
@@ -145,21 +144,13 @@ export default function JCDemerezClient() {
 
         {/* ── La Balanza de Minerva ── */}
         <section style={{ textAlign: 'center' }}>
-          <h2
-            style={sectionTitle}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.5')}
-          >La Balanza de Minerva</h2>
+          <h2 style={sectionTitle}>La Balanza de Minerva</h2>
           <div style={sectionSubtitle}>aforismos prácticos y filosóficos</div>
         </section>
 
         {/* ── Classicus ── */}
         <section style={{ textAlign: 'center' }}>
-          <h2
-            style={sectionTitle}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.5')}
-          >Classicus</h2>
+          <h2 style={sectionTitle}>Classicus</h2>
           <div style={sectionSubtitle}>biblioteca de obras eternas</div>
         </section>
 
@@ -177,7 +168,7 @@ export default function JCDemerezClient() {
       }}>
 
         {/* Formulario de suscripción */}
-        <div style={{ maxWidth: '400px', width: '90%', transition: 'opacity 0.3s' }}>
+        <div style={{ maxWidth: '600px', width: '90%', transition: 'opacity 0.3s' }}>
           {status === 'success' ? (
             <div style={{ opacity: 0.8, fontSize: '0.9rem', padding: '10px' }}>Hecho, suscripción confirmada</div>
           ) : (

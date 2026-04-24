@@ -84,7 +84,7 @@ export default function JCDemerezClient() {
       display: 'flex',
       flexDirection: 'column',
       position: 'relative',
-      height: '100dvh',
+      minHeight: '100dvh',
     }}>
 
       {/* ═══════ HEADER: JC de Merez ═══════ */}

@@ -66,7 +66,7 @@ export default function JCDemerezClient() {
   const sectionTitle: React.CSSProperties = {
     fontSize: 'clamp(1.2rem, 3vmin, 1.8rem)',
     fontWeight: 'normal',
-    letterSpacing: '0.15em',
+    letterSpacing: '0.05em',
     textTransform: 'uppercase',
     marginBottom: 'clamp(0.2rem, 0.6vmin, 0.4rem)',
     opacity: 0.5,
@@ -97,7 +97,7 @@ export default function JCDemerezClient() {
         <h1 style={{
           fontSize: 'clamp(1.7rem, 4.2vmin, 2.6rem)',
           fontWeight: 'bold',
-          letterSpacing: '0.18em',
+          letterSpacing: '0.06em',
           textTransform: 'uppercase',
           marginBottom: 'clamp(0.3rem, 0.8vmin, 0.5rem)',
         }}>

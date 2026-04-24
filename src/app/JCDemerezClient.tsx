@@ -69,6 +69,9 @@ export default function JCDemerezClient() {
     letterSpacing: '0.15em',
     textTransform: 'uppercase',
     marginBottom: 'clamp(0.2rem, 0.6vmin, 0.4rem)',
+    opacity: 0.5,
+    transition: 'opacity 0.3s',
+    cursor: 'default',
   };
 
   const sectionSubtitle: React.CSSProperties = {
@@ -131,20 +134,32 @@ export default function JCDemerezClient() {
               color: 'inherit',
             }}
           >
-            <h2 style={sectionTitle}>Adagium</h2>
+            <h2
+              style={sectionTitle}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.5')}
+            >Adagium</h2>
           </a>
           <div style={sectionSubtitle}>ars brevis, vita longa</div>
         </section>
 
         {/* ── La Balanza de Minerva ── */}
         <section style={{ textAlign: 'center' }}>
-          <h2 style={sectionTitle}>La Balanza de Minerva</h2>
+          <h2
+            style={sectionTitle}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.5')}
+          >La Balanza de Minerva</h2>
           <div style={sectionSubtitle}>aforismos prácticos y filosóficos</div>
         </section>
 
         {/* ── Classicus ── */}
         <section style={{ textAlign: 'center' }}>
-          <h2 style={sectionTitle}>Classicus</h2>
+          <h2
+            style={sectionTitle}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.5')}
+          >Classicus</h2>
           <div style={sectionSubtitle}>biblioteca de obras eternas</div>
         </section>
 
@@ -162,7 +177,7 @@ export default function JCDemerezClient() {
       }}>
 
         {/* Formulario de suscripción */}
-        <div style={{ maxWidth: '500px', width: '90%', transition: 'opacity 0.3s' }}>
+        <div style={{ maxWidth: '400px', width: '90%', transition: 'opacity 0.3s' }}>
           {status === 'success' ? (
             <div style={{ opacity: 0.8, fontSize: '0.9rem', padding: '10px' }}>Hecho, suscripción confirmada</div>
           ) : (
@@ -185,13 +200,13 @@ export default function JCDemerezClient() {
                 required
                 style={{
                   flex: 1,
-                  padding: 'clamp(7px, 1vmin, 10px) clamp(10px, 1.4vmin, 14px)',
+                  padding: '10px 14px',
                   background: 'transparent',
                   border: isDark ? '1px solid #666' : '1px solid #888',
-                  borderRadius: 'clamp(4px, 0.6vmin, 6px)',
+                  borderRadius: '6px',
                   color: 'inherit',
                   outline: 'none',
-                  fontSize: 'clamp(0.7rem, 0.9vmin, 0.9rem)',
+                  fontSize: '0.9rem',
                   minWidth: 0,
                   transition: 'border-color 0.3s',
                   fontFamily: 'inherit',
@@ -201,14 +216,14 @@ export default function JCDemerezClient() {
                 type="submit"
                 disabled={status === 'loading'}
                 style={{
-                  padding: 'clamp(7px, 1vmin, 10px) clamp(14px, 1.8vmin, 18px)',
+                  padding: '10px 18px',
                   background: !isValidEmail ? (isDark ? '#444' : '#888888') : (isDark ? '#ffffff' : '#000000'),
                   color: !isValidEmail ? (isDark ? '#888' : '#ffffff') : (isDark ? '#000000' : '#ffffff'),
                   border: 'none',
-                  borderRadius: 'clamp(4px, 0.6vmin, 6px)',
+                  borderRadius: '6px',
                   cursor: status === 'loading' ? 'wait' : (!isValidEmail ? 'not-allowed' : 'pointer'),
                   fontWeight: 500,
-                  fontSize: 'clamp(0.7rem, 0.9vmin, 0.9rem)',
+                  fontSize: '0.9rem',
                   transition: 'background-color 0.3s, color 0.3s',
                   fontFamily: 'inherit',
                 }}
@@ -274,7 +289,7 @@ export default function JCDemerezClient() {
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                style={{ width: 'clamp(32px, 4.6vmin, 46px)', height: 'clamp(32px, 4.6vmin, 46px)' }}
+                style={{ width: 'clamp(24px, 3.5vmin, 34px)', height: 'clamp(24px, 3.5vmin, 34px)' }}
               >
                 <rect x="2" y="4" width="20" height="16" rx="2" />
                 <path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />

@@ -3,30 +3,16 @@
 import { useState, useEffect } from 'react';
 
 export default function JCDemerezClient() {
-  const [isDark, setIsDark] = useState(false);
+  const isDark = true;
   const [email, setEmail] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('Ha ocurrido un error. Inténtalo de nuevo.');
 
-  // Dark mode automático: 19:00–07:00 (mismo comportamiento que adagium.es)
+  // Always dark mode
   useEffect(() => {
-    const checkSchedule = () => {
-      const hour = new Date().getHours();
-      setIsDark(hour >= 19 || hour < 7);
-    };
-    checkSchedule();
-    const interval = setInterval(checkSchedule, 60000);
-    return () => clearInterval(interval);
+    document.documentElement.classList.add('dark');
   }, []);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDark]);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,7 +50,7 @@ export default function JCDemerezClient() {
   // Estilos compartidos
   // ─────────────────────────────────────────────
   const sectionTitle: React.CSSProperties = {
-    fontSize: 'clamp(0.9rem, 3vmin, 1.8rem)',
+    fontSize: 'clamp(0.9rem, 3.5vmin, 1.8rem)',
     fontWeight: 'normal',
     letterSpacing: '0.10em',
     textTransform: 'uppercase',
@@ -74,7 +60,7 @@ export default function JCDemerezClient() {
   };
 
   const sectionSubtitle: React.CSSProperties = {
-    fontSize: 'clamp(0.7rem, 1.7vmin, 1.1rem)',
+    fontSize: 'clamp(0.7rem, 2vmin, 1.1rem)',
     opacity: 0.7,
   };
 
@@ -95,7 +81,7 @@ export default function JCDemerezClient() {
         textAlign: 'center',
       }}>
         <h1 style={{
-          fontSize: 'clamp(1.3rem, 4.2vmin, 2.6rem)',
+          fontSize: 'clamp(1.3rem, 4.5vmin, 2.6rem)',
           fontWeight: 'bold',
           letterSpacing: '0.10em',
           textTransform: 'uppercase',
@@ -104,7 +90,7 @@ export default function JCDemerezClient() {
           JC de Merez
         </h1>
         <div style={{
-          fontSize: 'clamp(0.75rem, 1.85vmin, 1.15rem)',
+          fontSize: 'clamp(0.75rem, 2vmin, 1.15rem)',
           opacity: 0.8,
         }}>
           nulla die sine aphorismus
@@ -120,7 +106,7 @@ export default function JCDemerezClient() {
         justifyContent: 'center',
         alignItems: 'center',
         padding: '0 clamp(16px, 4vmin, 40px)',
-        gap: 'clamp(1.2rem, 6vmin, 5rem)',
+        gap: 'clamp(1.5rem, 7vmin, 5rem)',
         minHeight: 0,
       }}>
 

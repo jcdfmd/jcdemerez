@@ -5,6 +5,9 @@ import { Analytics } from '@vercel/analytics/react';
 export const metadata: Metadata = {
   title: 'JC de Merez',
   description: 'Nulla die sine aphorismus. Página personal de JC de Merez.',
+  icons: {
+    icon: '/favicon.png',
+  },
   openGraph: {
     title: 'JC de Merez',
     description: 'Nulla die sine aphorismus.',
@@ -20,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" className="dark">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>

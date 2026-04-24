@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Obsidian sync noise (workspace changes on every navigation)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
+content/vault/.obsidian/workspace.json
+content/vault/.obsidian/workspace-mobile.json
+content/vault/.obsidian/graph.json
+.env*.local
+
+# Ignorar artefactos temporales AI
+artifacts/

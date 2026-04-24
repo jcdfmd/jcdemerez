@@ -1,0 +1,14 @@
+{
+  "dateFormat": "yyyy-MM-dd'T'HH:mm",
+  "enableCreateTime": true,
+  "headerUpdated": "updated",
+  "headerCreated": "created",
+  "minMinutesBetweenSaves": 1,
+  "ignoreGlobalFolder": [],
+  "ignoreCreatedFolder": [],
+  "enableExperimentalHash": false,
+  "fileHashMap": {
+    "_Mi Calendario.md": "2dddef3419486b21ebc70770c5b70153b965fa30f382aa96f7770655a64e3f7d",
+    "A_quien_admiras_procuras.md": "f0bfc2510debc2e3bb8125810f8193e1ae07161f3f4af5dbcad87633cfe2dd0f"
+  }
+}

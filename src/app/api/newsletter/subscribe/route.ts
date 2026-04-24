@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       );
     `);
 
-    // Insertar el correo — misma tabla que adagium.es
+    // Insertar el correo
     await client.query(`
       INSERT INTO subscribers (email)
       VALUES ($1)

@@ -113,9 +113,7 @@ export default function JCDemerezClient() {
         {/* ── Adagium ── */}
         <section style={{ textAlign: 'center' }}>
           <a
-            href="https://adagium.es"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/adagium"
             style={{
               textDecoration: 'none',
               color: 'inherit',

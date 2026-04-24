@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
+import { CSPostHogProvider } from './providers';
 
 export const metadata: Metadata = {
   title: 'JC de Merez',
@@ -28,8 +29,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
-        {children}
-        <Analytics />
+        <CSPostHogProvider>
+          {children}
+          <Analytics />
+        </CSPostHogProvider>
       </body>
     </html>
   );

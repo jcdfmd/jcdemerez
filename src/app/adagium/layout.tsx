@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { CSPostHogProvider } from './providers';
 
 export const metadata: Metadata = {
   title: 'Adagium — JC de Merez',
@@ -14,9 +13,6 @@ export default function AdagiumLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <CSPostHogProvider>
-      {children}
-    </CSPostHogProvider>
-  );
+  return <>{children}</>;
 }
+

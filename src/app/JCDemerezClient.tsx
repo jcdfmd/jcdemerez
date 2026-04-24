@@ -215,11 +215,8 @@ export default function JCDemerezClient() {
           {status === 'error' && <div style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '8px' }}>{errorMessage}</div>}
         </div>
 
-        {/* Iconos sociales + firma */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2vmin' }}>
-
-          {/* Iconos: X.com + Email */}
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 'clamp(20px, 3vmin, 32px)' }}>
+        {/* Iconos sociales */}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 'clamp(20px, 3vmin, 32px)' }}>
 
             {/* X.com (Twitter) */}
             <a
@@ -277,7 +274,8 @@ export default function JCDemerezClient() {
             </a>
           </div>
 
-          {/* Logo */}
+        {/* Logo + Firma (tight block) */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5vmin' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"

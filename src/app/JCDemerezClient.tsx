@@ -84,7 +84,7 @@ export default function JCDemerezClient() {
       display: 'flex',
       flexDirection: 'column',
       position: 'relative',
-      minHeight: '100dvh',
+      height: '100dvh',
     }}>
 
       {/* ═══════ HEADER: JC de Merez ═══════ */}
@@ -119,8 +119,9 @@ export default function JCDemerezClient() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 'clamp(3rem, 8vmin, 6rem) clamp(16px, 4vmin, 40px)',
-        gap: 'clamp(4rem, 9vmin, 7rem)',
+        padding: '0 clamp(16px, 4vmin, 40px)',
+        gap: 'clamp(1.5rem, 5dvh, 5rem)',
+        minHeight: 0,
       }}>
 
         {/* ── Adagium ── */}
@@ -161,12 +162,12 @@ export default function JCDemerezClient() {
       <footer style={{
         flex: '0 0 auto',
         width: '100%',
-        paddingBottom: '4vmin',
+        paddingBottom: '2dvh',
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '4vmin',
+        gap: '2dvh',
       }}>
 
         {/* Formulario de suscripción */}

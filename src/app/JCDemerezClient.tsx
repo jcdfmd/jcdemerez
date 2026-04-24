@@ -170,7 +170,7 @@ export default function JCDemerezClient() {
       }}>
 
         {/* Formulario de suscripción */}
-        <div style={{ maxWidth: '600px', width: '90%', transition: 'opacity 0.3s' }}>
+        <div style={{ maxWidth: '400px', width: '90%', transition: 'opacity 0.3s' }}>
           {status === 'success' ? (
             <div style={{ opacity: 0.8, fontSize: '0.9rem', padding: '10px' }}>Hecho, suscripción confirmada</div>
           ) : (
@@ -193,7 +193,7 @@ export default function JCDemerezClient() {
                 required
                 style={{
                   flex: 1,
-                  padding: '10px 14px',
+                  padding: '8px 14px',
                   background: 'transparent',
                   border: isDark ? '1px solid #666' : '1px solid #888',
                   borderRadius: '6px',
@@ -209,7 +209,7 @@ export default function JCDemerezClient() {
                 type="submit"
                 disabled={status === 'loading'}
                 style={{
-                  padding: '10px 18px',
+                  padding: '8px 18px',
                   background: !isValidEmail ? (isDark ? '#444' : '#888888') : (isDark ? '#ffffff' : '#000000'),
                   color: !isValidEmail ? (isDark ? '#888' : '#ffffff') : (isDark ? '#000000' : '#ffffff'),
                   border: 'none',

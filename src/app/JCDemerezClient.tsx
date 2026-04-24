@@ -283,8 +283,8 @@ export default function JCDemerezClient() {
             src="/logo.png"
             alt="JC de Merez"
             style={{
-              width: 'clamp(28px, 4.5vmin, 48px)',
-              height: 'clamp(28px, 4.5vmin, 48px)',
+              width: 'clamp(13px, 2.8vmin, 28px)',
+              height: 'clamp(13px, 2.8vmin, 28px)',
               opacity: 0.7,
               filter: 'invert(1)',
             }}

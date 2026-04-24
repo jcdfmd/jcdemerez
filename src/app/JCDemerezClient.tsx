@@ -64,8 +64,8 @@ export default function JCDemerezClient() {
   // Estilos compartidos
   // ─────────────────────────────────────────────
   const sectionTitle: React.CSSProperties = {
-    fontSize: 'clamp(1.4rem, 3.5vmin, 2.2rem)',
-    fontWeight: 'bold',
+    fontSize: 'clamp(1.2rem, 3vmin, 1.8rem)',
+    fontWeight: 'normal',
     letterSpacing: '0.15em',
     textTransform: 'uppercase',
     marginBottom: 'clamp(0.2rem, 0.6vmin, 0.4rem)',
@@ -93,7 +93,7 @@ export default function JCDemerezClient() {
         textAlign: 'center',
       }}>
         <h1 style={{
-          fontSize: 'clamp(2rem, 5vmin, 3.2rem)',
+          fontSize: 'clamp(1.7rem, 4.2vmin, 2.6rem)',
           fontWeight: 'bold',
           letterSpacing: '0.18em',
           textTransform: 'uppercase',
@@ -162,7 +162,7 @@ export default function JCDemerezClient() {
       }}>
 
         {/* Formulario de suscripción */}
-        <div style={{ maxWidth: '400px', width: '90%', transition: 'opacity 0.3s' }}>
+        <div style={{ maxWidth: '500px', width: '90%', transition: 'opacity 0.3s' }}>
           {status === 'success' ? (
             <div style={{ opacity: 0.8, fontSize: '0.9rem', padding: '10px' }}>Hecho, suscripción confirmada</div>
           ) : (
@@ -246,7 +246,7 @@ export default function JCDemerezClient() {
               <svg
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                style={{ width: 'clamp(32px, 4.6vmin, 46px)', height: 'clamp(32px, 4.6vmin, 46px)' }}
+                style={{ width: 'clamp(24px, 3.5vmin, 34px)', height: 'clamp(24px, 3.5vmin, 34px)' }}
               >
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>

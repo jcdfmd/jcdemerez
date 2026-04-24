@@ -153,7 +153,7 @@ export default function JCDemerezClient() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '3vmin',
+        gap: '0',
       }}>
 
         {/* Formulario de suscripción */}
@@ -216,7 +216,7 @@ export default function JCDemerezClient() {
         </div>
 
         {/* Iconos sociales */}
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 'clamp(20px, 3vmin, 32px)' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 'clamp(20px, 3vmin, 32px)', marginTop: '2vmin' }}>
 
             {/* X.com (Twitter) */}
             <a
@@ -275,7 +275,7 @@ export default function JCDemerezClient() {
           </div>
 
         {/* Logo + Firma (tight block) */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5vmin' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5vmin', marginTop: '4vmin' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"

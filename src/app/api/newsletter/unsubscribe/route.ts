@@ -1,7 +1,8 @@
-import { sql } from '@vercel/postgres';
+import { Client } from 'pg';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
+  let client;
   try {
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
@@ -10,8 +11,14 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Email requerido' }, { status: 400 });
     }
 
-    // Proteger contra bots y SQL injection basica usando librería pg client oficial
-    await sql`DELETE FROM subscribers WHERE email = ${email}`;
+    client = new Client({ 
+      connectionString: process.env.POSTGRES_URL,
+      ssl: { rejectUnauthorized: false } 
+    });
+    await client.connect();
+
+    await client.query('DELETE FROM subscribers WHERE email = $1', [email]);
+    await client.end();
 
     // Respuesta simple con formato minimalista Adagium
     const htmlResponse = `

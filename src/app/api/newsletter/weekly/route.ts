@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { Client } from 'pg';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import fs from 'fs';
@@ -66,7 +66,13 @@ export async function GET(request: Request) {
     }
 
     // Obtener suscriptores
-    const { rows: subscribers } = await sql`SELECT email FROM subscribers`;
+    const client = new Client({ 
+      connectionString: process.env.POSTGRES_URL,
+      ssl: { rejectUnauthorized: false } 
+    });
+    await client.connect();
+    const { rows: subscribers } = await client.query('SELECT email FROM subscribers');
+    await client.end();
     
     if (subscribers.length === 0) {
       return NextResponse.json({ message: 'No hay suscriptores' });

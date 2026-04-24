@@ -11,15 +11,32 @@ import crypto from 'crypto';
 // Autenticación: Bearer token vía TWEET_CRON_KEY (variable de Vercel).
 
 export async function GET(request: Request) {
-  // Autenticar la petición (acepta CRON_SECRET de Vercel O nuestro TWEET_CRON_KEY personalizado)
-  const authHeader = request.headers.get('authorization');
-  const cronSecret = process.env.CRON_SECRET;
+  const { searchParams } = new URL(request.url);
   const tweetCronKey = process.env.TWEET_CRON_KEY;
+  const cronSecret = process.env.CRON_SECRET;
+
+  // Acepta auth vía header Authorization O vía query param ?key=
+  const authHeader = request.headers.get('authorization');
+  const queryKey = searchParams.get('key');
 
   const isVercelCron = cronSecret && authHeader === `Bearer ${cronSecret}`;
-  const isExternalCron = tweetCronKey && authHeader === `Bearer ${tweetCronKey}`;
+  const isHeaderAuth = tweetCronKey && authHeader === `Bearer ${tweetCronKey}`;
+  const isQueryAuth = tweetCronKey && queryKey === tweetCronKey;
 
-  if (!isVercelCron && !isExternalCron) {
+  // Modo debug: si se pasa ?debug=1 sin auth, devuelve info de diagnóstico (sin revelar valores)
+  if (searchParams.get('debug') === '1' && !isVercelCron && !isHeaderAuth && !isQueryAuth) {
+    return NextResponse.json({
+      debug: true,
+      hasTweetCronKey: !!tweetCronKey,
+      tweetCronKeyLength: tweetCronKey?.length ?? 0,
+      hasCronSecret: !!cronSecret,
+      authHeaderPresent: !!authHeader,
+      authHeaderPrefix: authHeader?.slice(0, 15) ?? null,
+      queryKeyPresent: !!queryKey,
+    });
+  }
+
+  if (!isVercelCron && !isHeaderAuth && !isQueryAuth) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   }
 

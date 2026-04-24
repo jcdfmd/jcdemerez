@@ -290,9 +290,9 @@ export default function JCDemerezClient() {
             }}
           />
           <div style={{
-            fontSize: 'clamp(0.65rem, 1.5vmin, 0.95rem)',
+            fontSize: 'clamp(0.8rem, 1.85vmin, 1.15rem)',
             opacity: 0.5,
-            letterSpacing: '0.08em',
+            letterSpacing: '0.05em',
           }}>
             JC de Merez
           </div>

@@ -105,7 +105,7 @@ export default function JCDemerezClient() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '0 clamp(16px, 4vmin, 40px)',
+        padding: 'clamp(1.5rem, 4vmin, 4rem) clamp(16px, 4vmin, 40px)',
         gap: 'clamp(1.5rem, 7vmin, 5rem)',
         minHeight: 0,
       }}>

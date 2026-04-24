@@ -83,7 +83,6 @@ export default function JCDemerezClient() {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
       position: 'relative',
       minHeight: '100dvh',
     }}>
@@ -91,6 +90,7 @@ export default function JCDemerezClient() {
       {/* ═══════ HEADER: JC de Merez ═══════ */}
       <header style={{
         flex: '0 0 auto',
+        width: '100%',
         paddingTop: '4vmin',
         textAlign: 'center',
       }}>
@@ -114,6 +114,7 @@ export default function JCDemerezClient() {
       {/* ═══════ MAIN: Proyectos ═══════ */}
       <main style={{
         flex: '1 1 auto',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -159,6 +160,7 @@ export default function JCDemerezClient() {
       {/* ═══════ FOOTER: Newsletter + Firma ═══════ */}
       <footer style={{
         flex: '0 0 auto',
+        width: '100%',
         paddingBottom: '4vmin',
         textAlign: 'center',
         display: 'flex',

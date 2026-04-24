@@ -1,7 +1,5 @@
+import JCDemerezClient from './JCDemerezClient';
+
 export default function Home() {
-  return (
-    <main>
-      <div>Hello world!</div>
-    </main>
-  );
+  return <JCDemerezClient />;
 }

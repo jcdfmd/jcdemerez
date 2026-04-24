@@ -64,17 +64,17 @@ export default function JCDemerezClient() {
   // Estilos compartidos
   // ─────────────────────────────────────────────
   const sectionTitle: React.CSSProperties = {
-    fontSize: 'clamp(1.2rem, 3vmin, 1.8rem)',
+    fontSize: 'clamp(0.9rem, 3vmin, 1.8rem)',
     fontWeight: 'normal',
     letterSpacing: '0.10em',
     textTransform: 'uppercase',
-    marginBottom: 'clamp(0.2rem, 0.6vmin, 0.4rem)',
+    marginBottom: 'clamp(0.15rem, 0.5vmin, 0.4rem)',
     opacity: 0.5,
     transition: 'opacity 0.3s',
   };
 
   const sectionSubtitle: React.CSSProperties = {
-    fontSize: 'clamp(0.85rem, 1.7vmin, 1.1rem)',
+    fontSize: 'clamp(0.7rem, 1.7vmin, 1.1rem)',
     opacity: 0.7,
   };
 
@@ -95,16 +95,16 @@ export default function JCDemerezClient() {
         textAlign: 'center',
       }}>
         <h1 style={{
-          fontSize: 'clamp(1.7rem, 4.2vmin, 2.6rem)',
+          fontSize: 'clamp(1.3rem, 4.2vmin, 2.6rem)',
           fontWeight: 'bold',
           letterSpacing: '0.10em',
           textTransform: 'uppercase',
-          marginBottom: 'clamp(0.3rem, 0.8vmin, 0.5rem)',
+          marginBottom: 'clamp(0.2rem, 0.8vmin, 0.5rem)',
         }}>
           JC de Merez
         </h1>
         <div style={{
-          fontSize: 'clamp(0.9rem, 1.85vmin, 1.15rem)',
+          fontSize: 'clamp(0.75rem, 1.85vmin, 1.15rem)',
           opacity: 0.8,
         }}>
           nulla die sine aphorismus
@@ -120,7 +120,7 @@ export default function JCDemerezClient() {
         justifyContent: 'center',
         alignItems: 'center',
         padding: '0 clamp(16px, 4vmin, 40px)',
-        gap: 'clamp(1.5rem, 5dvh, 5rem)',
+        gap: 'clamp(1.2rem, 6vmin, 5rem)',
         minHeight: 0,
       }}>
 
@@ -162,12 +162,12 @@ export default function JCDemerezClient() {
       <footer style={{
         flex: '0 0 auto',
         width: '100%',
-        paddingBottom: '2dvh',
+        paddingBottom: '4vmin',
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '2dvh',
+        gap: '3vmin',
       }}>
 
         {/* Formulario de suscripción */}
@@ -194,13 +194,13 @@ export default function JCDemerezClient() {
                 required
                 style={{
                   flex: 1,
-                  padding: '8px 14px',
+                  padding: 'clamp(6px, 1.1vmin, 8px) clamp(8px, 1.8vmin, 14px)',
                   background: 'transparent',
                   border: isDark ? '1px solid #666' : '1px solid #888',
-                  borderRadius: '6px',
+                  borderRadius: 'clamp(4px, 0.8vmin, 6px)',
                   color: 'inherit',
                   outline: 'none',
-                  fontSize: '0.9rem',
+                  fontSize: 'clamp(0.7rem, 1.2vmin, 0.9rem)',
                   minWidth: 0,
                   transition: 'border-color 0.3s',
                   fontFamily: 'inherit',
@@ -210,14 +210,14 @@ export default function JCDemerezClient() {
                 type="submit"
                 disabled={status === 'loading'}
                 style={{
-                  padding: '8px 18px',
+                  padding: 'clamp(6px, 1.1vmin, 8px) clamp(12px, 2.4vmin, 18px)',
                   background: !isValidEmail ? (isDark ? '#444' : '#888888') : (isDark ? '#ffffff' : '#000000'),
                   color: !isValidEmail ? (isDark ? '#888' : '#ffffff') : (isDark ? '#000000' : '#ffffff'),
                   border: 'none',
-                  borderRadius: '6px',
+                  borderRadius: 'clamp(4px, 0.8vmin, 6px)',
                   cursor: status === 'loading' ? 'wait' : (!isValidEmail ? 'not-allowed' : 'pointer'),
                   fontWeight: 500,
-                  fontSize: '0.9rem',
+                  fontSize: 'clamp(0.7rem, 1.2vmin, 0.9rem)',
                   transition: 'background-color 0.3s, color 0.3s',
                   fontFamily: 'inherit',
                 }}
@@ -255,7 +255,7 @@ export default function JCDemerezClient() {
               <svg
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                style={{ width: 'clamp(24px, 3.5vmin, 34px)', height: 'clamp(24px, 3.5vmin, 34px)' }}
+                style={{ width: 'clamp(16px, 3.5vmin, 34px)', height: 'clamp(16px, 3.5vmin, 34px)' }}
               >
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
@@ -283,7 +283,7 @@ export default function JCDemerezClient() {
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                style={{ width: 'clamp(24px, 3.5vmin, 34px)', height: 'clamp(24px, 3.5vmin, 34px)' }}
+                style={{ width: 'clamp(16px, 3.5vmin, 34px)', height: 'clamp(16px, 3.5vmin, 34px)' }}
               >
                 <rect x="2" y="4" width="20" height="16" rx="2" />
                 <path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
@@ -293,7 +293,7 @@ export default function JCDemerezClient() {
 
           {/* Firma */}
           <div style={{
-            fontSize: 'clamp(0.95rem, 1.85vmin, 1.15rem)',
+            fontSize: 'clamp(0.75rem, 1.85vmin, 1.15rem)',
             opacity: 0.6,
             letterSpacing: '0.05em',
           }}>

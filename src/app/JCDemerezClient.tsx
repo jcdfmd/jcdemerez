@@ -277,14 +277,18 @@ export default function JCDemerezClient() {
             </a>
           </div>
 
-          {/* Firma */}
-          <div style={{
-            fontSize: 'clamp(0.75rem, 1.85vmin, 1.15rem)',
-            opacity: 0.6,
-            letterSpacing: '0.05em',
-          }}>
-            JC de Merez
-          </div>
+          {/* Logo */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="JC de Merez"
+            style={{
+              width: 'clamp(40px, 7vmin, 70px)',
+              height: 'clamp(40px, 7vmin, 70px)',
+              opacity: 0.85,
+              filter: 'invert(1)',
+            }}
+          />
         </div>
       </footer>
 

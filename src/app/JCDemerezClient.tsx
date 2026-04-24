@@ -283,9 +283,9 @@ export default function JCDemerezClient() {
             src="/logo.png"
             alt="JC de Merez"
             style={{
-              width: 'clamp(40px, 7vmin, 70px)',
-              height: 'clamp(40px, 7vmin, 70px)',
-              opacity: 0.85,
+              width: 'clamp(28px, 4.5vmin, 48px)',
+              height: 'clamp(28px, 4.5vmin, 48px)',
+              opacity: 0.7,
               filter: 'invert(1)',
             }}
           />

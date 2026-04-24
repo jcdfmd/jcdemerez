@@ -74,7 +74,6 @@ export default function JCDemerezClient() {
   const sectionSubtitle: React.CSSProperties = {
     fontSize: 'clamp(0.85rem, 1.7vmin, 1.1rem)',
     opacity: 0.7,
-    fontStyle: 'italic',
   };
 
   return (
@@ -90,7 +89,7 @@ export default function JCDemerezClient() {
       {/* ═══════ HEADER: JC de Merez ═══════ */}
       <header style={{
         flex: '0 0 auto',
-        paddingTop: 'clamp(3rem, 8vmin, 6rem)',
+        paddingTop: '4vmin',
         textAlign: 'center',
       }}>
         <h1 style={{
@@ -105,7 +104,6 @@ export default function JCDemerezClient() {
         <div style={{
           fontSize: 'clamp(0.9rem, 1.85vmin, 1.15rem)',
           opacity: 0.8,
-          fontStyle: 'italic',
         }}>
           nulla die sine aphorismus
         </div>
@@ -119,7 +117,7 @@ export default function JCDemerezClient() {
         justifyContent: 'center',
         alignItems: 'center',
         padding: 'clamp(3rem, 8vmin, 6rem) clamp(16px, 4vmin, 40px)',
-        gap: 'clamp(3rem, 7vmin, 5.5rem)',
+        gap: 'clamp(4rem, 9vmin, 7rem)',
       }}>
 
         {/* ── Adagium ── */}
@@ -144,9 +142,9 @@ export default function JCDemerezClient() {
           <div style={sectionSubtitle}>aforismos prácticos y filosóficos</div>
         </section>
 
-        {/* ── Classicum ── */}
+        {/* ── Classicus ── */}
         <section style={{ textAlign: 'center' }}>
-          <h2 style={sectionTitle}>Classicum</h2>
+          <h2 style={sectionTitle}>Classicus</h2>
           <div style={sectionSubtitle}>biblioteca de obras eternas</div>
         </section>
 
@@ -248,7 +246,7 @@ export default function JCDemerezClient() {
               <svg
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                style={{ width: 'clamp(18px, 2.4vmin, 24px)', height: 'clamp(18px, 2.4vmin, 24px)' }}
+                style={{ width: 'clamp(32px, 4.6vmin, 46px)', height: 'clamp(32px, 4.6vmin, 46px)' }}
               >
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
@@ -276,7 +274,7 @@ export default function JCDemerezClient() {
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                style={{ width: 'clamp(20px, 2.8vmin, 28px)', height: 'clamp(20px, 2.8vmin, 28px)' }}
+                style={{ width: 'clamp(32px, 4.6vmin, 46px)', height: 'clamp(32px, 4.6vmin, 46px)' }}
               >
                 <rect x="2" y="4" width="20" height="16" rx="2" />
                 <path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />

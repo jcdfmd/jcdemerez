@@ -303,7 +303,7 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
           onClick={handleNext}
           className="roulette-btn"
           style={{ 
-            marginTop: '2vmin',
+            marginTop: '4vmin',
             cursor: 'pointer',
             padding: '6px',
             WebkitTapHighlightColor: 'transparent',
@@ -349,7 +349,15 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
           {status === 'success' ? (
             <div style={{ opacity: 0.8, fontSize: '0.9rem', padding: '10px' }}>Hecho, suscripción confirmada</div>
           ) : (
-            <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '8px' }}>
+            <div>
+              <div style={{
+                fontSize: 'clamp(0.7rem, 1.5vmin, 0.9rem)',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                opacity: 0.85,
+                marginBottom: '0.6rem',
+              }}>Recibe lo nuevo</div>
+              <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '8px' }}>
               <input 
                 type="text" 
                 name="b_email" 
@@ -399,6 +407,7 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
                 {status === 'loading' ? '...' : 'Suscribirme'}
               </button>
             </form>
+            </div>
           )}
           {status === 'error' && <div style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '8px' }}>{errorMessage}</div>}
         </div>

@@ -59,15 +59,15 @@ body {
    Sidebar
    ═══════════════════════════════════════════════ */
 .sidebar {
-  width: 280px;
-  min-width: 280px;
+  width: 320px;
+  min-width: 320px;
   height: 100dvh;
   background-color: var(--sidebar-bg);
   color: var(--sidebar-text);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3vmin 20px 2.5vmin;
+  padding: 4vmin 24px 3vmin;
   transition: background-color 0.6s ease, color 0.6s ease;
   overflow-y: auto;
   position: relative;
@@ -78,28 +78,20 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
 
 .sidebar-logo {
-  width: clamp(36px, 5vmin, 50px);
-  height: clamp(36px, 5vmin, 50px);
+  width: clamp(44px, 6vmin, 62px);
+  height: clamp(44px, 6vmin, 62px);
   filter: var(--sidebar-logo-filter);
   transition: filter 0.6s ease;
 }
 
-.sidebar-title {
-  font-size: clamp(1.1rem, 2.5vmin, 1.5rem);
-  font-weight: bold;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  text-align: center;
-}
-
 .sidebar-subtitle {
-  font-size: clamp(0.7rem, 1.5vmin, 0.9rem);
-  opacity: 0.7;
+  font-size: clamp(0.75rem, 1.6vmin, 1rem);
+  opacity: 0.6;
   text-align: center;
   font-style: italic;
 }
@@ -109,7 +101,7 @@ body {
   width: 50%;
   height: 1px;
   background-color: var(--sidebar-separator);
-  margin: 2vmin 0;
+  margin: 2.5vmin 0;
   flex-shrink: 0;
   transition: background-color 0.6s ease;
 }
@@ -121,7 +113,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(1.5rem, 4vmin, 3rem);
+  gap: clamp(1.8rem, 5vmin, 3.5rem);
   width: 100%;
 }
 
@@ -134,13 +126,13 @@ body {
 }
 
 .sidebar-nav-item .nav-title {
-  font-size: clamp(0.85rem, 2vmin, 1.1rem);
+  font-size: clamp(0.95rem, 2.2vmin, 1.25rem);
   font-weight: normal;
   letter-spacing: 0.10em;
   text-transform: uppercase;
   opacity: 0.5;
   transition: opacity 0.3s;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
 }
 
 .sidebar-nav-item:hover .nav-title,
@@ -149,8 +141,8 @@ body {
 }
 
 .sidebar-nav-item .nav-subtitle {
-  font-size: clamp(0.65rem, 1.3vmin, 0.85rem);
-  opacity: 0.6;
+  font-size: clamp(0.7rem, 1.4vmin, 0.95rem);
+  opacity: 0.55;
 }
 
 /* ─── Footer (social + signature) ─── */
@@ -158,7 +150,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5vmin;
+  gap: 2vmin;
   flex-shrink: 0;
 }
 
@@ -166,7 +158,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(16px, 2.5vmin, 28px);
+  gap: clamp(20px, 3vmin, 32px);
 }
 
 .sidebar-social a {
@@ -182,12 +174,12 @@ body {
 }
 
 .sidebar-social svg {
-  width: clamp(16px, 2.5vmin, 24px);
-  height: clamp(16px, 2.5vmin, 24px);
+  width: clamp(18px, 3vmin, 28px);
+  height: clamp(18px, 3vmin, 28px);
 }
 
 .sidebar-signature {
-  font-size: clamp(0.7rem, 1.3vmin, 0.9rem);
+  font-size: clamp(0.75rem, 1.4vmin, 0.95rem);
   opacity: 0.4;
   letter-spacing: 0.05em;
 }
@@ -218,11 +210,11 @@ body {
     min-width: unset;
     height: auto;
     min-height: auto;
-    padding: 4vmin 20px 3vmin;
+    padding: 5vmin 20px 4vmin;
   }
 
   .sidebar-nav {
-    gap: clamp(1rem, 3vmin, 2rem);
+    gap: clamp(1.2rem, 3vmin, 2rem);
   }
 
   .main-content {

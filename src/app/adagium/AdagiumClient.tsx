@@ -40,7 +40,7 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
   const containerRef = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
-  // Detect dark mode for conditional styles
+  // Detect dark mode for conditional styles (theme is managed by LayoutShell)
   const [isDark, setIsDark] = useState(false);
   useEffect(() => {
     function checkDark() {
@@ -50,21 +50,6 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
     const observer = new MutationObserver(checkDark);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     return () => observer.disconnect();
-  }, []);
-
-  // Time-based dark/light mode: 7pm-7am = dark, 7am-7pm = light
-  useEffect(() => {
-    function applyTheme() {
-      const hour = new Date().getHours();
-      if (hour >= 19 || hour < 7) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }
-    applyTheme();
-    const interval = setInterval(applyTheme, 60_000);
-    return () => clearInterval(interval);
   }, []);
 
   // Modificador adaptativo anti-scroll + balance de líneas
@@ -260,7 +245,7 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', minHeight: '100dvh' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
         
       {/* HEADER: Adagium y Subtítulos */}
       <header style={{ 
@@ -431,8 +416,11 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
           {status === 'error' && <div style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '8px' }}>{errorMessage}</div>}
         </div>
 
-        {/* Logo only (no signature) — links to jcdemerez.com */}
-        <a href="/" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {/* Logo only — links to jcdemerez.com, opacity + white on hover */}
+        <a
+          href="/"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src="/logo.png" 
@@ -441,7 +429,16 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
               width: 'clamp(32px, 4.6vmin, 46px)', 
               height: 'clamp(32px, 4.6vmin, 46px)',
               filter: isDark ? 'invert(1)' : 'none',
-              transition: 'filter 0.6s ease',
+              opacity: 0.35,
+              transition: 'opacity 0.3s ease, filter 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.opacity = '1';
+              e.currentTarget.style.filter = 'invert(1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.opacity = '0.35';
+              e.currentTarget.style.filter = isDark ? 'invert(1)' : 'none';
             }}
           />
         </a>

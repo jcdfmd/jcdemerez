@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { CSPostHogProvider } from './providers';
+import LayoutShell from './LayoutShell';
 
 export const metadata: Metadata = {
   title: 'JC de Merez',
@@ -43,7 +44,9 @@ export default function RootLayout({
       </head>
       <body>
         <CSPostHogProvider>
-          {children}
+          <LayoutShell>
+            {children}
+          </LayoutShell>
           <Analytics />
         </CSPostHogProvider>
       </body>

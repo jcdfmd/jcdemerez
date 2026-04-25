@@ -1,13 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Caudex&display=swap');
 
+/* ═══════════════════════════════════════════════
+   CSS Variables — Theme System
+   Main area and sidebar have INVERTED themes:
+   - Light mode: main=light, sidebar=dark
+   - Dark mode:  main=dark,  sidebar=light
+   ═══════════════════════════════════════════════ */
+
 :root {
-  --bg-color: #F5F5E8; /* Crudo */
+  /* Main area colors (light mode) */
+  --bg-color: #F5F5E8;
   --text-primary: #111111;
+
+  /* Sidebar colors (inverted = dark in light mode) */
+  --sidebar-bg: #1a1a1a;
+  --sidebar-text: #F5F5E8;
+  --sidebar-separator: rgba(245, 245, 232, 0.25);
+  --sidebar-logo-filter: invert(1);
+
+  /* Main logo */
+  --logo-filter: none;
 }
 
 :root.dark {
-  --bg-color: #1a1a1a; /* Oscuro */
-  --text-primary: #F5F5E8; /* Crudo */
+  /* Main area colors (dark mode) */
+  --bg-color: #1a1a1a;
+  --text-primary: #F5F5E8;
+
+  /* Sidebar colors (inverted = light in dark mode) */
+  --sidebar-bg: #F5F5E8;
+  --sidebar-text: #111111;
+  --sidebar-separator: rgba(17, 17, 17, 0.25);
+  --sidebar-logo-filter: none;
+
+  /* Main logo */
+  --logo-filter: invert(1);
 }
 
 * {
@@ -21,9 +48,186 @@ body {
   color: var(--text-primary);
   width: 100%;
   min-height: 100dvh;
-  overflow: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  transition: background-color 0.6s ease, color 0.6s ease;
+  font-family: "Caudex", serif;
+}
+
+/* ═══════════════════════════════════════════════
+   Sidebar
+   ═══════════════════════════════════════════════ */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  height: 100dvh;
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3vmin 20px 2.5vmin;
+  transition: background-color 0.6s ease, color 0.6s ease;
+  overflow-y: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  width: clamp(36px, 5vmin, 50px);
+  height: clamp(36px, 5vmin, 50px);
+  filter: var(--sidebar-logo-filter);
+  transition: filter 0.6s ease;
+}
+
+.sidebar-title {
+  font-size: clamp(1.1rem, 2.5vmin, 1.5rem);
+  font-weight: bold;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.sidebar-subtitle {
+  font-size: clamp(0.7rem, 1.5vmin, 0.9rem);
+  opacity: 0.7;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ─── Separators ─── */
+.sidebar-separator {
+  width: 50%;
+  height: 1px;
+  background-color: var(--sidebar-separator);
+  margin: 2vmin 0;
+  flex-shrink: 0;
+  transition: background-color 0.6s ease;
+}
+
+/* ─── Navigation Links ─── */
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vmin, 3rem);
+  width: 100%;
+}
+
+.sidebar-nav-item {
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
+
+.sidebar-nav-item .nav-title {
+  font-size: clamp(0.85rem, 2vmin, 1.1rem);
+  font-weight: normal;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  margin-bottom: 0.2rem;
+}
+
+.sidebar-nav-item:hover .nav-title,
+.sidebar-nav-item.active .nav-title {
+  opacity: 1;
+}
+
+.sidebar-nav-item .nav-subtitle {
+  font-size: clamp(0.65rem, 1.3vmin, 0.85rem);
+  opacity: 0.6;
+}
+
+/* ─── Footer (social + signature) ─── */
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5vmin;
+  flex-shrink: 0;
+}
+
+.sidebar-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(16px, 2.5vmin, 28px);
+}
+
+.sidebar-social a {
+  color: inherit;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-social a:hover {
+  opacity: 1;
+}
+
+.sidebar-social svg {
+  width: clamp(16px, 2.5vmin, 24px);
+  height: clamp(16px, 2.5vmin, 24px);
+}
+
+.sidebar-signature {
+  font-size: clamp(0.7rem, 1.3vmin, 0.9rem);
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+}
+
+/* ═══════════════════════════════════════════════
+   Main Content Area
+   ═══════════════════════════════════════════════ */
+.main-content {
+  flex: 1;
+  height: 100dvh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   transition: background-color 0.6s ease, color 0.6s ease;
-  font-family: "Caudex", serif;
+}
+
+/* ═══════════════════════════════════════════════
+   Mobile Responsive
+   ═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    height: auto;
+    min-height: auto;
+    padding: 4vmin 20px 3vmin;
+  }
+
+  .sidebar-nav {
+    gap: clamp(1rem, 3vmin, 2rem);
+  }
+
+  .main-content {
+    height: auto;
+    min-height: 100dvh;
+    overflow-y: visible;
+  }
 }

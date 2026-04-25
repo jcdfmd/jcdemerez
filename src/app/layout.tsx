@@ -24,9 +24,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className="dark">
+    <html lang="es" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* Inline script to set dark/light BEFORE first paint to avoid flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var h = new Date().getHours();
+                if (h >= 19 || h < 7) {
+                  document.documentElement.classList.add('dark');
+                }
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         <CSPostHogProvider>

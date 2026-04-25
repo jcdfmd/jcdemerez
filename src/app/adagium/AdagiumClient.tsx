@@ -32,7 +32,6 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
 
 
   const [opacity, setOpacity] = useState(1);
-  const isDark = false;
   const [email, setEmail] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -40,6 +39,33 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
   
   const containerRef = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+
+  // Detect dark mode for conditional styles
+  const [isDark, setIsDark] = useState(false);
+  useEffect(() => {
+    function checkDark() {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    }
+    checkDark();
+    const observer = new MutationObserver(checkDark);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+  // Time-based dark/light mode: 7pm-7am = dark, 7am-7pm = light
+  useEffect(() => {
+    function applyTheme() {
+      const hour = new Date().getHours();
+      if (hour >= 19 || hour < 7) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+    applyTheme();
+    const interval = setInterval(applyTheme, 60_000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Modificador adaptativo anti-scroll + balance de líneas
   useEffect(() => {
@@ -234,7 +260,7 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', minHeight: '100dvh' }}>
         
       {/* HEADER: Adagium y Subtítulos */}
       <header style={{ 
@@ -337,7 +363,7 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
         </button>
       </main>
 
-      {/* FOOTER: Newsletter y Firma */}
+      {/* FOOTER: Newsletter + Logo (sin firma) */}
       <footer style={{ 
         flex: '0 0 auto', 
         paddingBottom: '4vmin', 
@@ -405,24 +431,20 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
           {status === 'error' && <div style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '8px' }}>{errorMessage}</div>}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5vmin' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
-              src="/jcdm-logo.png" 
-              alt="JC de Merez" 
-              style={{ width: 'clamp(32px, 4.6vmin, 46px)', height: 'clamp(32px, 4.6vmin, 46px)' }}
-            />
-
-          <a href="/" style={{ 
-            fontSize: 'clamp(0.95rem, 1.85vmin, 1.15rem)', 
-            opacity: 0.6,
-            letterSpacing: '0.05em',
-            textDecoration: 'none',
-            color: 'inherit'
-          }}>
-            JC de Merez
-          </a>
-        </div>
+        {/* Logo only (no signature) — links to jcdemerez.com */}
+        <a href="/" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src="/logo.png" 
+            alt="JC de Merez" 
+            style={{ 
+              width: 'clamp(32px, 4.6vmin, 46px)', 
+              height: 'clamp(32px, 4.6vmin, 46px)',
+              filter: isDark ? 'invert(1)' : 'none',
+              transition: 'filter 0.6s ease',
+            }}
+          />
+        </a>
       </footer>
 
     </div>

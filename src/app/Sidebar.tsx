@@ -1,17 +1,26 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 export default function Sidebar() {
+  const pathname = usePathname();
+
+  // Determine active section based on current route
+  const activeSection = pathname.startsWith('/adagium') ? 'adagium' : null;
+
   return (
     <aside className="sidebar">
 
       {/* Logo + Subtitle (sin título) */}
       <div className="sidebar-header">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo.png"
-          alt="JC de Merez"
-          className="sidebar-logo"
-        />
+        <a href="/">
+          <img
+            src="/logo.png"
+            alt="JC de Merez"
+            className="sidebar-logo"
+          />
+        </a>
         <div className="sidebar-subtitle">nulla die sine aphorismus</div>
       </div>
 
@@ -20,7 +29,10 @@ export default function Sidebar() {
 
       {/* ─── Navigation Links ─── */}
       <nav className="sidebar-nav">
-        <a href="/adagium" className="sidebar-nav-item">
+        <a
+          href="/adagium"
+          className={`sidebar-nav-item ${activeSection === 'adagium' ? 'active' : ''}`}
+        >
           <h2 className="nav-title">Adagium</h2>
           <div className="nav-subtitle">ars brevis, vita longa</div>
         </a>

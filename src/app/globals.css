@@ -17,6 +17,7 @@
   --sidebar-text: #F5F5E8;
   --sidebar-separator: rgba(245, 245, 232, 0.25);
   --sidebar-logo-filter: invert(1);
+  --sidebar-active: #D4A847;
 
   /* Main logo */
   --logo-filter: none;
@@ -32,6 +33,7 @@
   --sidebar-text: #111111;
   --sidebar-separator: rgba(17, 17, 17, 0.25);
   --sidebar-logo-filter: none;
+  --sidebar-active: #8B6914;
 
   /* Main logo */
   --logo-filter: invert(1);
@@ -82,6 +84,11 @@ body {
   flex-shrink: 0;
 }
 
+.sidebar-header a {
+  display: flex;
+  align-items: center;
+}
+
 .sidebar-logo {
   width: clamp(44px, 6vmin, 62px);
   height: clamp(44px, 6vmin, 62px);
@@ -112,8 +119,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(1.8rem, 5vmin, 3.5rem);
+  justify-content: flex-start;
+  padding-top: 2vmin;
+  gap: clamp(2.2rem, 6vmin, 4.5rem);
   width: 100%;
 }
 
@@ -131,18 +139,28 @@ body {
   letter-spacing: 0.10em;
   text-transform: uppercase;
   opacity: 0.5;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, color 0.3s;
   margin-bottom: 0.25rem;
 }
 
-.sidebar-nav-item:hover .nav-title,
-.sidebar-nav-item.active .nav-title {
+.sidebar-nav-item:hover .nav-title {
   opacity: 1;
 }
 
 .sidebar-nav-item .nav-subtitle {
   font-size: clamp(0.7rem, 1.4vmin, 0.95rem);
   opacity: 0.55;
+  transition: opacity 0.3s;
+}
+
+/* ─── Active state ─── */
+.sidebar-nav-item.active .nav-title {
+  opacity: 1;
+  color: var(--sidebar-active);
+}
+
+.sidebar-nav-item.active .nav-subtitle {
+  opacity: 0.8;
 }
 
 /* ─── Footer (social + signature) ─── */
@@ -214,7 +232,8 @@ body {
   }
 
   .sidebar-nav {
-    gap: clamp(1.2rem, 3vmin, 2rem);
+    gap: clamp(1.4rem, 3.5vmin, 2.5rem);
+    padding-top: 1vmin;
   }
 
   .main-content {

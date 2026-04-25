@@ -249,7 +249,7 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
       {/* TITLE */}
       <header style={{ flex: '0 0 auto', paddingTop: '3.5vmin', textAlign: 'center' }}>
         <h1 style={{
-          fontSize: 'clamp(1.6rem, 3.8vmin, 2.4rem)',
+          fontSize: 'clamp(1.3rem, 3vmin, 1.9rem)',
           fontWeight: 'normal',
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
@@ -321,7 +321,7 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
           }}
           aria-label="Siguiente reflexión"
         >
-          {/* Single circular arrow — thick stroke, one arrowhead */}
+          {/* Option C style: two thick semicircles, only bottom arrowhead */}
           <svg
             style={{
               width: 'clamp(28px, 3.8vmin, 36px)',
@@ -335,10 +335,12 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            {/* ~300° clockwise arc from upper-right to upper-left */}
-            <path d="M 18.9 6.2 A 9 9 0 1 1 5.1 6.2" />
-            {/* Single arrowhead at the end (upper-left), pointing clockwise */}
-            <polyline points="2.5 3.8 5.1 6.2 7.7 3.8" />
+            {/* Top semicircle: right→top→left, no arrowhead */}
+            <path d="M 21 12 A 9 9 0 0 0 3 12" />
+            {/* Bottom semicircle: left→bottom→right, arrowhead at right end */}
+            <path d="M 3 12 A 9 9 0 0 1 21 12" />
+            {/* Arrowhead at (21,12) pointing upward */}
+            <polyline points="18 15 21 12 24 15" />
           </svg>
         </button>
       </main>

@@ -78,11 +78,9 @@ export async function GET(request: Request) {
       return NextResponse.json({ message: 'No hay suscriptores' });
     }
 
-    // Construir el asunto dinámico
+    // Construir el asunto dinámico — aforismo completo, el gestor de correo trunca
     const previewAphorism = recentAphorisms[0] || '';
-    const words = previewAphorism.split(/\s+/);
-    const subjectSnippet = words.slice(0, 10).join(' ') + (words.length > 10 ? '...' : '');
-    const subjectLine = `Adagium | ${subjectSnippet}`;
+    const subjectLine = previewAphorism.replace(/;/g, ',') + '...';
 
     const emailHtml = `
 <!DOCTYPE html>
@@ -175,8 +173,7 @@ export async function GET(request: Request) {
 </head>
 <body>
   <div class="container">
-    <h1 class="title"><a href="https://jcdemerez.com/adagium" style="text-decoration: none; color: inherit;">Adagium</a></h1>
-    <div class="subtitle">ars brevis, vita longa</div>
+    <h1 class="title"><a href="https://jcdemerez.com/aforismos" style="text-decoration: none; color: inherit;">Aforismos</a></h1>
     <hr class="line-separator" />
     
     \${recentAphorisms.map((aph, idx) => \`
@@ -188,10 +185,6 @@ export async function GET(request: Request) {
     
     <div class="logo-container">
       <hr class="line-separator" />
-      <a href="https://jcdemerez.com/adagium" style="text-decoration: none; border: none;">
-        <img src="https://jcdemerez.com/icon-dark.png" class="logo-dark" alt="Adagium Logo" />
-        <img src="https://jcdemerez.com/icon-light.png" class="logo-light" alt="Adagium Logo" />
-      </a>
     </div>
 
     <div class="signature">
@@ -199,7 +192,7 @@ export async function GET(request: Request) {
     </div>
     
     <div class="footer">
-      Estás recibiendo este correo porque te has suscrito a las publicaciones de Adagium en jcdemerez.com/adagium.<br><br>
+      Estás recibiendo este correo porque te has suscrito a las publicaciones de Adagium en jcdemerez.com/aforismos.<br><br>
       <a href="https://jcdemerez.com/api/newsletter/unsubscribe?email={{EMAIL}}">Darme de baja</a>
     </div>
   </div>
@@ -217,7 +210,7 @@ export async function GET(request: Request) {
       const chunk = subscribers.slice(i, i + chunkSize);
       
       const batchData = chunk.map((sub: any) => ({
-        from: 'Adagium <jcdemerez@adagium.es>',
+        from: 'JC de Merez <jcdemerez@jcdemerez.com>',
         reply_to: 'jcdemerez@jcdemerez.com',
         to: [sub.email as string],
         subject: subjectLine,

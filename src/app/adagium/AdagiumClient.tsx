@@ -249,11 +249,11 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
       {/* TITLE */}
       <header style={{ flex: '0 0 auto', paddingTop: '3.5vmin', textAlign: 'center' }}>
         <h1 style={{
-          fontSize: 'clamp(1.1rem, 2.5vmin, 1.6rem)',
+          fontSize: 'clamp(1.6rem, 3.8vmin, 2.4rem)',
           fontWeight: 'normal',
-          letterSpacing: '0.15em',
+          letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          opacity: 0.5,
+          opacity: 0.85,
         }}>
           Aforismos
         </h1>
@@ -321,25 +321,24 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
           }}
           aria-label="Siguiente reflexión"
         >
-          {/* Shuffle icon — modern, communicates randomness */}
+          {/* Single circular arrow — thick stroke, one arrowhead */}
           <svg
             style={{
-              width: 'clamp(26px, 3.6vmin, 34px)',
-              height: 'clamp(26px, 3.6vmin, 34px)',
-              transform: 'rotate(165deg)',
+              width: 'clamp(28px, 3.8vmin, 36px)',
+              height: 'clamp(28px, 3.8vmin, 36px)',
               pointerEvents: 'none',
             }}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="1.25"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <polyline points="16 3 21 3 21 8" />
-            <line x1="4" y1="20" x2="21" y2="3" />
-            <polyline points="21 16 21 21 16 21" />
-            <line x1="15" y1="15" x2="21" y2="21" />
+            {/* ~300° clockwise arc from upper-right to upper-left */}
+            <path d="M 18.9 6.2 A 9 9 0 1 1 5.1 6.2" />
+            {/* Single arrowhead at the end (upper-left), pointing clockwise */}
+            <polyline points="2.5 3.8 5.1 6.2 7.7 3.8" />
           </svg>
         </button>
       </main>

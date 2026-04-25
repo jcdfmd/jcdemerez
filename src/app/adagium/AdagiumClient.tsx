@@ -301,11 +301,10 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
         <button 
           type="button"
           onClick={handleNext}
+          className="roulette-btn"
           style={{ 
             marginTop: '2vmin',
             cursor: 'pointer',
-            opacity: isLoadingNext ? 0.2 : 0.5,
-            transition: 'opacity 0.3s ease',
             padding: 'clamp(12px, 2.5vmin, 25px)',
             WebkitTapHighlightColor: 'transparent',
             touchAction: 'manipulation',
@@ -322,11 +321,7 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
           aria-label="Siguiente reflexión"
         >
           <svg
-            style={{
-              width: 'clamp(28px, 3.8vmin, 36px)',
-              height: 'clamp(28px, 3.8vmin, 36px)',
-              pointerEvents: 'none',
-            }}
+            className={`roulette-icon ${isLoadingNext ? 'spinning' : ''}`}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

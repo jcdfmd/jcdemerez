@@ -17,7 +17,6 @@
   --sidebar-text: #F5F5E8;
   --sidebar-separator: rgba(245, 245, 232, 0.25);
   --sidebar-logo-filter: invert(1);
-  --sidebar-active: #D4A847;
 
   /* Main logo */
   --logo-filter: none;
@@ -33,7 +32,6 @@
   --sidebar-text: #111111;
   --sidebar-separator: rgba(17, 17, 17, 0.25);
   --sidebar-logo-filter: none;
-  --sidebar-active: #8B6914;
 
   /* Main logo */
   --logo-filter: invert(1);
@@ -100,7 +98,6 @@ body {
   font-size: clamp(0.75rem, 1.6vmin, 1rem);
   opacity: 0.6;
   text-align: center;
-  font-style: italic;
 }
 
 /* ─── Separators ─── */
@@ -131,6 +128,9 @@ body {
   color: inherit;
   display: block;
   cursor: pointer;
+  padding: 0.6rem 1.3rem;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .sidebar-nav-item .nav-title {
@@ -153,14 +153,19 @@ body {
   transition: opacity 0.3s;
 }
 
-/* ─── Active state ─── */
+/* ─── Active state (card) ─── */
+.sidebar-nav-item.active {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+}
+
 .sidebar-nav-item.active .nav-title {
   opacity: 1;
-  color: var(--sidebar-active);
+  color: inherit;
 }
 
 .sidebar-nav-item.active .nav-subtitle {
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 /* ─── Footer (social + signature) ─── */
@@ -197,7 +202,7 @@ body {
 }
 
 .sidebar-signature {
-  font-size: clamp(0.75rem, 1.4vmin, 0.95rem);
+  font-size: clamp(0.85rem, 1.7vmin, 1.1rem);
   opacity: 0.4;
   letter-spacing: 0.05em;
 }

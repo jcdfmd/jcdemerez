@@ -233,7 +233,7 @@ body {
   width: clamp(28px, 3.8vmin, 36px);
   height: clamp(28px, 3.8vmin, 36px);
   pointer-events: none;
-  transform: rotate(180deg);
+  transform: scaleX(-1) rotate(180deg);
   transition: transform 0.5s ease;
 }
 
@@ -242,8 +242,8 @@ body {
 }
 
 @keyframes spin {
-  from { transform: rotate(180deg); }
-  to   { transform: rotate(540deg); }
+  from { transform: scaleX(-1) rotate(180deg); }
+  to   { transform: scaleX(-1) rotate(540deg); }
 }
 
 /* ═══════════════════════════════════════════════

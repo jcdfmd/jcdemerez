@@ -305,7 +305,7 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
           style={{ 
             marginTop: '2vmin',
             cursor: 'pointer',
-            padding: 'clamp(12px, 2.5vmin, 25px)',
+            padding: '6px',
             WebkitTapHighlightColor: 'transparent',
             touchAction: 'manipulation',
             display: 'flex',

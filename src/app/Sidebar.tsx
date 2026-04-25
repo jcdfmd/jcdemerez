@@ -2,16 +2,23 @@
 
 import { usePathname } from 'next/navigation';
 
+function formatDate(ms: string | undefined): string {
+  if (!ms) return 'Desconocida';
+  const date = new Date(parseInt(ms));
+  const d = String(date.getDate()).padStart(2, '0');
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  return `${d}/${m}/${date.getFullYear()}`;
+}
+
 export default function Sidebar() {
   const pathname = usePathname();
-
-  // Determine active section based on current route
-  const activeSection = pathname.startsWith('/adagium') ? 'adagium' : null;
+  const activeSection = pathname.startsWith('/adagium') ? 'aforismos' : null;
+  const lastUpdate = formatDate(process.env.VAULT_LAST_UPDATE_MS);
 
   return (
     <aside className="sidebar">
 
-      {/* Logo + Subtitle (sin título) */}
+      {/* Logo + Subtitle */}
       <div className="sidebar-header">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <a href="/">
@@ -31,22 +38,32 @@ export default function Sidebar() {
       <nav className="sidebar-nav">
         <a
           href="/adagium"
-          className={`sidebar-nav-item ${activeSection === 'adagium' ? 'active' : ''}`}
+          className={`sidebar-nav-item ${activeSection === 'aforismos' ? 'active' : ''}`}
         >
-          <h2 className="nav-title">Adagium</h2>
-          <div className="nav-subtitle">ars brevis, vita longa</div>
+          <span className="nav-title">Aforismos</span>
         </a>
 
         <div className="sidebar-nav-item" style={{ cursor: 'default' }}>
-          <h2 className="nav-title">La Balanza de Minerva</h2>
-          <div className="nav-subtitle">aforismos prácticos y filosóficos</div>
+          <span className="nav-title">Dietario</span>
         </div>
 
+        <div className="sidebar-nav-mini-separator" />
+
         <div className="sidebar-nav-item" style={{ cursor: 'default' }}>
-          <h2 className="nav-title">Classicus</h2>
-          <div className="nav-subtitle">biblioteca de obras eternas</div>
+          <span className="nav-title">La Balanza de Minerva</span>
+        </div>
+
+        <div className="sidebar-nav-mini-separator" />
+
+        <div className="sidebar-nav-item" style={{ cursor: 'default' }}>
+          <span className="nav-title">Biblioteca</span>
         </div>
       </nav>
+
+      {/* Actualizado a... */}
+      <div className="sidebar-update">
+        Actualizado a {lastUpdate}
+      </div>
 
       {/* ─── Bottom separator ─── */}
       <div className="sidebar-separator" />

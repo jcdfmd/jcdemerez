@@ -21,7 +21,6 @@ export default async function AdagiumPage() {
   return (
     <AdagiumClient 
       initialAphorism={initialAphorism} 
-      lastUpdate={data.lastUpdate} 
       todayCount={data.todayCount} 
     />
   );

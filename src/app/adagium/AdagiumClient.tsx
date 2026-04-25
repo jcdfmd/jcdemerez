@@ -17,11 +17,10 @@ export interface Aphorism {
 
 interface Props {
   initialAphorism: Aphorism;
-  lastUpdate: string;
   todayCount: number;
 }
 
-export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount }: Props) {
+export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
   const [currentAphorism, setCurrentAphorism] = useState<Aphorism>(initialAphorism);
   const [nextAphorismQueue, setNextAphorismQueue] = useState<Aphorism | null>(null);
   const [seenIds, setSeenIds] = useState<string[]>([initialAphorism.id]);
@@ -246,38 +245,6 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
-        
-      {/* HEADER: Adagium y Subtítulos */}
-      <header style={{ 
-        flex: '0 0 auto', 
-        paddingTop: '4vmin', 
-        textAlign: 'center' 
-      }}>
-        <h1 style={{ 
-          fontSize: 'clamp(1.7rem, 4.2vmin, 2.6rem)', 
-          fontWeight: 'bold', 
-          letterSpacing: '0.10em',
-          textTransform: 'uppercase',
-          marginBottom: 'clamp(0.3rem, 0.8vmin, 0.5rem)'
-        }}>
-          Adagium
-        </h1>
-        <div style={{
-          fontSize: 'clamp(0.9rem, 1.85vmin, 1.15rem)',
-          opacity: 0.8,
-        }}>
-          ars brevis, vita longa
-        </div>
-        
-        <div style={{
-          fontSize: 'clamp(0.7rem, 1.5vmin, 0.95rem)',
-          opacity: 0.6,
-          letterSpacing: '0.05em',
-          marginTop: '5vmin'
-        }}>
-          Actualizado a {lastUpdate}
-        </div>
-      </header>
 
       {/* BODY MAIN CONTAINER: Aphorism */}
       <main 
@@ -341,7 +308,7 @@ export default function AdagiumClient({ initialAphorism, lastUpdate, todayCount 
           }}
           aria-label="Siguiente reflexión"
         >
-          <svg style={{width: 'clamp(28px, 3.8vmin, 36px)', height: 'clamp(28px, 3.8vmin, 36px)', transform: 'scaleX(-1)', pointerEvents: 'none'}} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+          <svg style={{width: 'clamp(28px, 3.8vmin, 36px)', height: 'clamp(28px, 3.8vmin, 36px)', transform: 'scaleX(-1) rotate(120deg)', pointerEvents: 'none'}} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="23 4 23 10 17 10"></polyline>
             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
           </svg>

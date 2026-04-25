@@ -12,7 +12,7 @@ function formatDate(ms: string | undefined): string {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const activeSection = pathname.startsWith('/adagium') ? 'aforismos' : null;
+  const activeSection = (pathname.startsWith('/aforismos') || pathname.startsWith('/adagium')) ? 'aforismos' : null;
   const lastUpdate = formatDate(process.env.VAULT_LAST_UPDATE_MS);
 
   return (
@@ -37,7 +37,7 @@ export default function Sidebar() {
       {/* ─── Navigation Links ─── */}
       <nav className="sidebar-nav">
         <a
-          href="/adagium"
+          href="/aforismos"
           className={`sidebar-nav-item ${activeSection === 'aforismos' ? 'active' : ''}`}
         >
           <span className="nav-title">Aforismos</span>

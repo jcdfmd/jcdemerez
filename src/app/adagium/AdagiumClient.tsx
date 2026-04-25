@@ -246,6 +246,19 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
 
+      {/* TITLE */}
+      <header style={{ flex: '0 0 auto', paddingTop: '3.5vmin', textAlign: 'center' }}>
+        <h1 style={{
+          fontSize: 'clamp(1.1rem, 2.5vmin, 1.6rem)',
+          fontWeight: 'normal',
+          letterSpacing: '0.15em',
+          textTransform: 'uppercase',
+          opacity: 0.5,
+        }}>
+          Aforismos
+        </h1>
+      </header>
+
       {/* BODY MAIN CONTAINER: Aphorism */}
       <main 
         ref={containerRef}
@@ -308,9 +321,25 @@ export default function AdagiumClient({ initialAphorism, todayCount }: Props) {
           }}
           aria-label="Siguiente reflexión"
         >
-          <svg style={{width: 'clamp(28px, 3.8vmin, 36px)', height: 'clamp(28px, 3.8vmin, 36px)', transform: 'scaleX(-1) rotate(120deg)', pointerEvents: 'none'}} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="23 4 23 10 17 10"></polyline>
-            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          {/* Shuffle icon — modern, communicates randomness */}
+          <svg
+            style={{
+              width: 'clamp(26px, 3.6vmin, 34px)',
+              height: 'clamp(26px, 3.6vmin, 34px)',
+              transform: 'rotate(165deg)',
+              pointerEvents: 'none',
+            }}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="16 3 21 3 21 8" />
+            <line x1="4" y1="20" x2="21" y2="3" />
+            <polyline points="21 16 21 21 16 21" />
+            <line x1="15" y1="15" x2="21" y2="21" />
           </svg>
         </button>
       </main>

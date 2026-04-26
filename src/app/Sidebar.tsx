@@ -131,9 +131,10 @@ export default function Sidebar() {
         <div className="sidebar-signature">JC de Merez</div>
       </div>
 
-      {/* Actualizado a... (al final del todo) */}
+      {/* Última actualización (al final del todo) */}
       <div className="sidebar-update">
-        Actualizado a {lastUpdate}
+        <span>Última actualización</span>
+        <span>{lastUpdate}</span>
       </div>
     </aside>
   );

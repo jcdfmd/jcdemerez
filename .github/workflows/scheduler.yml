@@ -1,0 +1,41 @@
+name: Assign Scheduling to New Aphorisms
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'content/vault/**.md'
+
+jobs:
+  assign_schedule:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Importantísimo: el bot necesita permisos para reescribir y hacer commit de vuelta a nuestro repo
+    steps:
+      - name: Descargar Código
+        uses: actions/checkout@v3
+
+      - name: Configurar Entorno Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar Dependencias (Frontmatter Parser)
+        run: pip install python-frontmatter
+
+      - name: Ejecutar Inteligencia de Asignación Cíclica
+        run: python .github/scripts/assign_schedule.py
+
+      - name: Hacer Commit Automático de Vuelta a la Bóveda de Github
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          # Si algun archivo cambió, forzamos un add y un commit
+          if [[ `git status --porcelain` ]]; then
+            git add content/vault/
+            git commit -m "bot: auto-programadas nuevas reflexiones en calendario cíclico"
+            git push
+          else
+            echo "No ha habido cambios en los archivos."
+          fi

@@ -126,9 +126,6 @@ export default function Sidebar() {
             </svg>
           </a>
         </div>
-
-        {/* Signature */}
-        <div className="sidebar-signature">JC de Merez</div>
       </div>
 
       {/* Última actualización (al final del todo) */}

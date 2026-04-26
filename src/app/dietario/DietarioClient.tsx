@@ -352,29 +352,21 @@ export default function DietarioClient({ initialEntry, todayCount }: Props) {
           {status === 'error' && <div style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '8px' }}>{errorMessage}</div>}
         </div>
 
-        {/* Logo — proper contrast on hover */}
+        {/* Firma */}
         <a
-          href="/"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          href="https://jcdemerez.com"
+          style={{
+            textDecoration: 'none',
+            color: 'inherit',
+            opacity: 0.4,
+            fontSize: 'clamp(0.85rem, 1.7vmin, 1.1rem)',
+            letterSpacing: '0.05em',
+            transition: 'opacity 0.3s ease',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.4'; }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt="JC de Merez"
-            style={{
-              width: 'clamp(32px, 4.6vmin, 46px)',
-              height: 'clamp(32px, 4.6vmin, 46px)',
-              filter: isDark ? 'invert(1)' : 'none',
-              opacity: 0.35,
-              transition: 'opacity 0.3s ease, filter 0.3s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = '1';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = '0.35';
-            }}
-          />
+          JC de Merez
         </a>
       </footer>
     </div>

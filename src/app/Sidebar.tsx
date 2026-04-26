@@ -12,7 +12,17 @@ function formatDate(ms: string | undefined): string {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const activeSection = (pathname.startsWith('/aforismos') || pathname.startsWith('/adagium')) ? 'aforismos' : null;
+  
+  const getActiveSection = () => {
+    if (pathname.startsWith('/aforismos') || pathname.startsWith('/adagium')) return 'aforismos';
+    if (pathname.startsWith('/dietario')) return 'dietario';
+    if (pathname.startsWith('/balanza-de-minerva')) return 'balanza';
+    if (pathname.startsWith('/biblioteca')) return 'biblioteca';
+    if (pathname.startsWith('/acerca-de')) return 'acerca';
+    return null;
+  };
+  
+  const activeSection = getActiveSection();
   const lastUpdate = formatDate(process.env.VAULT_LAST_UPDATE_MS);
 
   return (
@@ -43,26 +53,45 @@ export default function Sidebar() {
           <span className="nav-title">Aforismos</span>
         </a>
 
-        <div className="sidebar-nav-item" style={{ cursor: 'default' }}>
+        <a
+          href="/dietario"
+          className={`sidebar-nav-item ${activeSection === 'dietario' ? 'active' : ''}`}
+        >
           <span className="nav-title">Dietario</span>
-        </div>
+        </a>
 
         <div className="sidebar-nav-mini-separator" />
 
-        <div className="sidebar-nav-item" style={{ cursor: 'default' }}>
+        <a
+          href="/balanza-de-minerva"
+          className={`sidebar-nav-item ${activeSection === 'balanza' ? 'active' : ''}`}
+        >
           <span className="nav-title">La Balanza de Minerva</span>
-        </div>
+        </a>
 
         <div className="sidebar-nav-mini-separator" />
 
-        <div className="sidebar-nav-item" style={{ cursor: 'default' }}>
+        <a
+          href="/biblioteca"
+          className={`sidebar-nav-item ${activeSection === 'biblioteca' ? 'active' : ''}`}
+        >
           <span className="nav-title">Biblioteca</span>
-        </div>
+        </a>
       </nav>
 
-      {/* Actualizado a... */}
-      <div className="sidebar-update">
-        Actualizado a {lastUpdate}
+      {/* ─── Bottom section: Acerca de + Actualizado a ─── */}
+      <div className="sidebar-bottom">
+        <a
+          href="/acerca-de"
+          className={`sidebar-nav-item ${activeSection === 'acerca' ? 'active' : ''}`}
+        >
+          <span className="nav-title">Acerca de</span>
+        </a>
+
+        {/* Actualizado a... */}
+        <div className="sidebar-update">
+          Actualizado a {lastUpdate}
+        </div>
       </div>
 
       {/* ─── Bottom separator ─── */}

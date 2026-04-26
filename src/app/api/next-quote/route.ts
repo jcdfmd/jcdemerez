@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAphorisms } from '@/lib/aphorisms';
+import { getAphorisms, EntryType } from '@/lib/aphorisms';
 
 // Rate Limiting en memoria para detener spam rápido. (En Vercel esto se reinicia entre contenedores
 // o despliegues, pero es suficiente para parar a bots que lanzan ráfagas a la misma instancia).
@@ -53,7 +53,9 @@ export async function POST(req: Request) {
     }
     const nextTodayIndex: number | undefined = typeof body.nextTodayIndex === 'number' ? body.nextTodayIndex : undefined;
 
-    const data = getAphorisms();
+    // Filtrar por tipo si se indica (aforismo o dietario). Default: aforismo
+    const filterType: EntryType = body.type === 'dietario' ? 'dietario' : 'aforismo';
+    const data = getAphorisms(filterType);
     
     // Si todavía quedan aforismos de "hoy" (prioritarios) y el cliente los pide
     if (nextTodayIndex !== undefined && nextTodayIndex >= 0 && nextTodayIndex < data.todayCount) {
@@ -74,7 +76,10 @@ export async function POST(req: Request) {
       // Si ya los vio todos, barajamos y empezamos de nuevo
       available = data.allAphorisms;
       if (available.length === 0) {
-        return NextResponse.json({ aphorism: { id: "none", content: "No hay aforismos disponibles." }, resetSeen: true });
+        const emptyMsg = filterType === 'dietario' 
+          ? "No hay entradas en el dietario todavía."
+          : "No hay aforismos disponibles.";
+        return NextResponse.json({ aphorism: { id: "none", content: emptyMsg }, resetSeen: true });
       }
     }
 

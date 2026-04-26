@@ -59,8 +59,8 @@ body {
    Sidebar
    ═══════════════════════════════════════════════ */
 .sidebar {
-  width: 320px;
-  min-width: 320px;
+  width: 360px;
+  min-width: 360px;
   height: 100dvh;
   background-color: var(--sidebar-bg);
   color: var(--sidebar-text);
@@ -166,6 +166,17 @@ body {
 .sidebar-nav-item.active .nav-title {
   opacity: 1;
   color: inherit;
+}
+
+/* ─── Bottom section (Acerca de + Update date) ─── */
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.4rem, 1vmin, 0.8rem);
+  flex-shrink: 0;
+  width: 100%;
+  margin-top: auto;
 }
 
 /* ─── Update date ─── */

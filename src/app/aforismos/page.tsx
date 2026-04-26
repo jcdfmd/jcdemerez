@@ -4,7 +4,7 @@ import { getAphorisms, Aphorism } from '@/lib/aphorisms';
 export const dynamic = 'force-dynamic';
 
 export default async function AforismoPage() {
-  const data = getAphorisms();
+  const data = getAphorisms('aforismo');
   
   let initialAphorism: Aphorism;
 
@@ -15,7 +15,7 @@ export default async function AforismoPage() {
     const randomIndex = Math.floor(Math.random() * data.allAphorisms.length);
     initialAphorism = data.allAphorisms[randomIndex];
   } else {
-    initialAphorism = { id: 'none', content: "No hay reflexiones en la bóveda todavía." };
+    initialAphorism = { id: 'none', content: "No hay reflexiones en la bóveda todavía.", type: 'aforismo' };
   }
 
   return (

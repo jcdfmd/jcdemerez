@@ -2,9 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 
+export type EntryType = 'aforismo' | 'dietario';
+
 export interface Aphorism {
   id: string; // Base64 del nombre del archivo, para identificar sin repetirse
   content: string;
+  type: EntryType;
 }
 
 export interface VaultData {
@@ -21,7 +24,21 @@ export function formatSpanishDate(date: Date) {
   return `${d}/${m}/${date.getFullYear()}`;
 }
 
-export function getAphorisms(): VaultData {
+/**
+ * Extrae el campo 'type' del frontmatter YAML.
+ * Si no existe o no es válido, devuelve 'aforismo' (retrocompatibilidad).
+ */
+function parseEntryType(frontmatter: string): EntryType {
+  const typeMatch = frontmatter.match(/^type:\s*['"]?(aforismo|dietario)['"]?\s*$/im);
+  return typeMatch ? (typeMatch[1] as EntryType) : 'aforismo';
+}
+
+/**
+ * Lee todos los entries del vault, opcionalmente filtrando por tipo.
+ * - Sin filtro: devuelve todos (aforismos + dietario)
+ * - Con filtro: devuelve solo los del tipo indicado
+ */
+export function getAphorisms(filterType?: EntryType): VaultData {
   const todayAphorisms: Aphorism[] = [];
   const otherAphorisms: Aphorism[] = [];
   let lastUpdate = "Desconocida";
@@ -60,6 +77,16 @@ export function getAphorisms(): VaultData {
           const filePath = path.join(vaultPath, file);
           const fileContents = fs.readFileSync(filePath, 'utf8');
           
+          // Extraer frontmatter para tipo y metadatos
+          const frontmatterMatch = fileContents.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+          const frontmatter = frontmatterMatch ? frontmatterMatch[1] : '';
+          const entryType = parseEntryType(frontmatter);
+          
+          // Filtrar por tipo si se ha indicado
+          if (filterType && entryType !== filterType) {
+            return;
+          }
+          
           const stats = fs.statSync(filePath);
           
           let isToday = false;
@@ -77,9 +104,8 @@ export function getAphorisms(): VaultData {
 
             let hasYamlDate = false;
             // 1. Prioridad Absoluta: Etiqueta YAML 'updated' o 'modified' del plugin de Obsidian
-            const yamlMatch = fileContents.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-            if (yamlMatch && yamlMatch[1]) {
-              const updatedMatch = yamlMatch[1].match(/^(?:updated|modified):\s*"?([^"\s\r\n]+)"?/im);
+            if (frontmatterMatch && frontmatterMatch[1]) {
+              const updatedMatch = frontmatterMatch[1].match(/^(?:updated|modified):\s*"?([^"\s\r\n]+)"?/im);
               if (updatedMatch && updatedMatch[1]) {
                 hasYamlDate = true;
                 const timestamp = new Date(updatedMatch[1]).getTime();
@@ -106,7 +132,7 @@ export function getAphorisms(): VaultData {
           const content = fileContents.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '').trim();
           if (content.length > 0) {
             const id = Buffer.from(file).toString('base64');
-            const item = { id, content };
+            const item = { id, content, type: entryType };
             if (isToday) {
               todayAphorisms.push(item);
             } else {

@@ -18,6 +18,11 @@ function getPast7Days() {
   return days;
 }
 
+interface RecentEntry {
+  content: string;
+  type: 'aforismo' | 'dietario';
+}
+
 export async function GET(request: Request) {
   // Verificar token de Vercel Cron
   const authHeader = request.headers.get('authorization');
@@ -28,7 +33,7 @@ export async function GET(request: Request) {
   try {
     const past7Days = getPast7Days();
     const vaultPath = path.join(process.cwd(), 'content', 'vault');
-    const recentAphorisms: string[] = [];
+    const recentEntries: RecentEntry[] = [];
 
     if (fs.existsSync(vaultPath)) {
       const files = fs.readdirSync(vaultPath);
@@ -42,6 +47,7 @@ export async function GET(request: Request) {
         // Parseo ligero (regex) ya que python-frontmatter no funciona en Node.js, y no instalamos gray-matter
         const frontmatterMatch = fileContents.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
         let publishDay: string | null = null;
+        let entryType: 'aforismo' | 'dietario' = 'aforismo';
 
         if (frontmatterMatch) {
           const fm = frontmatterMatch[1];
@@ -49,21 +55,29 @@ export async function GET(request: Request) {
           if (dayMatch) {
             publishDay = dayMatch[1];
           }
+          const typeMatch = fm.match(/^type:\s*['"]?(aforismo|dietario)['"]?\s*$/im);
+          if (typeMatch) {
+            entryType = typeMatch[1] as 'aforismo' | 'dietario';
+          }
         }
 
         if (publishDay && past7Days.includes(publishDay)) {
           const content = fileContents.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '').trim();
           if (content.length > 0) {
-            recentAphorisms.push(content);
+            recentEntries.push({ content, type: entryType });
           }
         }
       }
     }
 
-    if (recentAphorisms.length === 0) {
+    if (recentEntries.length === 0) {
       // Si no hay ninguno reciente (últimos 7 días), no enviamos ningún correo y el cron finaliza silenciosamente.
-      return NextResponse.json({ message: 'No hay aforismos recientes para enviar' });
+      return NextResponse.json({ message: 'No hay contenido reciente para enviar' });
     }
+
+    // Separar por tipo
+    const recentAphorisms = recentEntries.filter(e => e.type === 'aforismo');
+    const recentDietario = recentEntries.filter(e => e.type === 'dietario');
 
     // Obtener suscriptores
     const client = new Client({ 
@@ -79,8 +93,32 @@ export async function GET(request: Request) {
     }
 
     // Construir el asunto dinámico — aforismo completo, el gestor de correo trunca
-    const previewAphorism = recentAphorisms[0] || '';
-    const subjectLine = previewAphorism.replace(/;/g, ',') + '...';
+    const previewText = recentAphorisms.length > 0 ? recentAphorisms[0].content : (recentDietario[0]?.content || '');
+    const subjectLine = previewText.replace(/;/g, ',').replace(/\n/g, ' ').slice(0, 200) + '...';
+
+    // Generar secciones HTML
+    const aforismosHtml = recentAphorisms.length > 0 ? `
+    <h1 class="title"><a href="https://jcdemerez.com/aforismos" style="text-decoration: none; color: inherit;">Aforismos</a></h1>
+    <hr class="line-separator" />
+    
+    ${recentAphorisms.map((entry, idx) => `
+      <div class="aphorism">
+        ${entry.content.split(';').join('<span style="display:block;margin-bottom:6px;"></span>')}
+      </div>
+      ${idx < recentAphorisms.length - 1 ? '<div class="separator">~</div>' : ''}
+    `).join('')}` : '';
+
+    const dietarioHtml = recentDietario.length > 0 ? `
+    ${recentAphorisms.length > 0 ? '<hr class="line-separator" />' : ''}
+    <h1 class="title"><a href="https://jcdemerez.com/dietario" style="text-decoration: none; color: inherit;">Dietario</a></h1>
+    <hr class="line-separator" />
+    
+    ${recentDietario.map((entry, idx) => `
+      <div class="aphorism" style="line-height: 1.6;">
+        ${entry.content.split('\n\n').map(p => `<p style="margin: 0.5em 0;">${p.trim()}</p>`).join('')}
+      </div>
+      ${idx < recentDietario.length - 1 ? '<div class="separator">~</div>' : ''}
+    `).join('')}` : '';
 
     const emailHtml = `
 <!DOCTYPE html>
@@ -173,15 +211,8 @@ export async function GET(request: Request) {
 </head>
 <body>
   <div class="container">
-    <h1 class="title"><a href="https://jcdemerez.com/aforismos" style="text-decoration: none; color: inherit;">Aforismos</a></h1>
-    <hr class="line-separator" />
-    
-    \${recentAphorisms.map((aph, idx) => \`
-      <div class="aphorism">
-        \${aph.split(';').join('<span style="display:block;margin-bottom:6px;"></span>')}
-      </div>
-      \${idx < recentAphorisms.length - 1 ? '<div class="separator">~</div>' : ''}
-    \`).join('')}
+    ${aforismosHtml}
+    ${dietarioHtml}
     
     <div class="logo-container">
       <hr class="line-separator" />
@@ -192,7 +223,7 @@ export async function GET(request: Request) {
     </div>
     
     <div class="footer">
-      Estás recibiendo este correo porque te has suscrito a las publicaciones de Adagium en jcdemerez.com/aforismos.<br><br>
+      Estás recibiendo este correo porque te has suscrito a las publicaciones de JC de Merez en jcdemerez.com.<br><br>
       <a href="https://jcdemerez.com/api/newsletter/unsubscribe?email={{EMAIL}}">Darme de baja</a>
     </div>
   </div>
@@ -221,7 +252,9 @@ export async function GET(request: Request) {
       allBatchResponses.push(response);
     }
 
-    return NextResponse.json({ message: `Enviados ${recentAphorisms.length} aforismos a ${subscribers.length} suscriptores` });
+    return NextResponse.json({ 
+      message: `Enviados ${recentAphorisms.length} aforismos + ${recentDietario.length} entradas de dietario a ${subscribers.length} suscriptores` 
+    });
   } catch (error) {
     console.error('Newsletter error:', error);
     return NextResponse.json({ error: 'Error enviando newsletter' }, { status: 500 });

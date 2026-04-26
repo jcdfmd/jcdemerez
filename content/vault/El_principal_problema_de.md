@@ -1,6 +1,9 @@
 ---
 publish_day: 07-08
-publish_time: '23:00'
+publish_time: 23:00
+type: aforismo
+created: 2026-04-26T15:30
+updated: 2026-04-26T15:30
 ---
 
 El principal problema de los datos no es que a menudo estén equivocados, sino que dan exactamente lo que se les pide.

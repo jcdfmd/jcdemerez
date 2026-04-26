@@ -1,6 +1,9 @@
 ---
 publish_day: 02-06
-publish_time: '16:00'
+publish_time: 16:00
+type: aforismo
+created: 2026-04-26T15:30
+updated: 2026-04-26T15:30
 ---
 
 Las relaciones nacen gracias a lo poco que se conoce del otro y sobreviven gracias a lo mucho que del otro se ignora.

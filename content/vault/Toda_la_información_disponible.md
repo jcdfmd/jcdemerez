@@ -1,6 +1,9 @@
 ---
 publish_day: 20-07
-publish_time: '19:00'
+publish_time: 19:00
+type: aforismo
+created: 2026-04-26T15:30
+updated: 2026-04-26T15:30
 ---
 
 Toda la información disponible no es toda la información necesaria.

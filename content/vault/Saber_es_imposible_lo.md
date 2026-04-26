@@ -1,6 +1,9 @@
 ---
 publish_day: 19-05
-publish_time: '20:00'
+publish_time: 20:00
+type: aforismo
+created: 2026-04-26T15:30
+updated: 2026-04-26T15:30
 ---
 
 Saber es imposible; lo que sí es concebible, y provechoso, es saber más que los demás.

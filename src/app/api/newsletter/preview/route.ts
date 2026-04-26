@@ -122,10 +122,14 @@ export function buildNewsletterHtml(entries: RecentEntry[], options?: { preview?
     <!-- Separator -->
     <hr class="line-separator" style="width:250px;border:none;border-top:1px solid #111111;margin:55px auto;opacity:0.25;" />
 
-    <!-- SOCIAL ICONS -->
+    <!-- SOCIAL ICONS - SVGs como data URI, funcionan en Gmail/Apple Mail/iOS -->
     <div style="margin-bottom:20px;">
-      <a href="https://x.com/jcdemerez" target="_blank" class="social-link" style="display:inline-block;margin:0 14px;color:#111111;text-decoration:none;opacity:0.55;font-family:Arial,sans-serif;font-size:20px;font-weight:bold;" title="X (Twitter)">X</a>
-      <a href="mailto:jcdemerez@jcdemerez.com" class="social-link" style="display:inline-block;margin:0 14px;color:#111111;text-decoration:none;opacity:0.55;font-size:24px;" title="Email">✉</a>
+      <a href="https://x.com/jcdemerez" target="_blank" style="display:inline-block;margin:0 14px;text-decoration:none;" title="X (Twitter)">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='%23555555'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X (Twitter)" width="24" height="24" style="vertical-align:middle;display:block;" />
+      </a>
+      <a href="mailto:jcdemerez@jcdemerez.com" style="display:inline-block;margin:0 14px;text-decoration:none;" title="Email">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none' stroke='%23555555' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='4' width='20' height='16' rx='2'/%3E%3Cpath d='M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'/%3E%3C/svg%3E" alt="Email" width="24" height="24" style="vertical-align:middle;display:block;" />
+      </a>
     </div>
 
     <!-- SIGNATURE -->

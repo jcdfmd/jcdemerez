@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     await client.query('DELETE FROM subscribers WHERE email = $1', [email]);
     await client.end();
 
-    // Respuesta simple con formato minimalista Adagium
+    // Respuesta simple con formato minimalista
     const htmlResponse = `
 <!DOCTYPE html>
 <html lang="es">

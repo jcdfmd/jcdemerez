@@ -102,7 +102,7 @@ body {
 
 /* ─── Separators ─── */
 .sidebar-separator {
-  width: 50%;
+  width: 75%;
   height: 1.5px;
   background-color: var(--sidebar-separator);
   margin: 2.5vmin 0;

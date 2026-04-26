@@ -26,7 +26,7 @@ export function CSPostHogProvider({ children }: { children: React.ReactNode }) {
         // Exponer para uso global seguro (sin React provider)
         (window as unknown as Record<string, unknown>).__posthog = posthog;
       } catch (e) {
-        console.warn('[Adagium] PostHog no pudo cargar:', e);
+        console.warn('[JCdM] PostHog no pudo cargar:', e);
       }
     })();
   }, []);

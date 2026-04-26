@@ -33,7 +33,8 @@ def main():
         if basename.lower() in ['mi calendario.md', 'calendario.md']: continue
         archivos.append(f)
     
-    # Mapear las horas ya ocupadas en cada día
+    # ─── Paso 1: Mapear las horas ya ocupadas en cada día ───
+    # Esto construye un mapa de 365 días, con las horas (0-23) que ya tienen publicación.
     calendario_horas_ocupadas = {dia: [] for dia in dias_del_año}
     archivos_sin_asignar = []
 
@@ -42,19 +43,11 @@ def main():
             with open(archivo, "r", encoding="utf-8") as f:
                 post = frontmatter.load(f)
             
-            # Si ya tiene publish_day y publish_time, solo verificar que tenga type
             if 'publish_day' in post.metadata and 'publish_time' in post.metadata:
                 dia_asignado = post.metadata['publish_day']
                 hora_asignada = str(post.metadata['publish_time']).split(':')[0].zfill(2)
                 if dia_asignado in calendario_horas_ocupadas:
                     calendario_horas_ocupadas[dia_asignado].append(hora_asignada)
-                
-                # Asegurar que archivos ya programados tengan type
-                if 'type' not in post.metadata:
-                    post.metadata['type'] = 'aforismo'
-                    with open(archivo, "w", encoding="utf-8") as f:
-                        f.write(frontmatter.dumps(post))
-                    print(f"  [type] Añadido type: aforismo a '{os.path.basename(archivo)}'")
             else:
                 archivos_sin_asignar.append(archivo)
         except Exception as e:
@@ -66,16 +59,24 @@ def main():
 
     print(f"Se han encontrado {len(archivos_sin_asignar)} archivos sin fecha. Asignando motor perpetuo...")
 
+    # ─── Paso 2: Asignación cíclica equilibrada ───
+    # Algoritmo:
+    #   1. Calcula la "carga mínima" (el mínimo número de publicaciones que tiene cualquier día del año)
+    #   2. Filtra los días que tienen exactamente esa carga mínima
+    #      → Así primero todos los días llegan a 1, luego a 2, luego a 3, etc.
+    #   3. De entre esos días, elige el más próximo a hoy
+    #   4. Dentro de ese día, elige una hora al azar que no esté ocupada
+    #   5. Repite para cada archivo sin asignar
+
     for archivo in archivos_sin_asignar:
-        # Encontrar el nivel de carga más bajo basado en la cantidad de horas ocupadas
         cargas_por_dia = {dia: len(horas) for dia, horas in calendario_horas_ocupadas.items()}
         min_carga = min(cargas_por_dia.values())
         
         if min_carga >= 24:
-            print("El calendario de 365 días está completamente saturado a 24 tweets/día. Se ignora.")
+            print("El calendario de 365 días está completamente saturado a 24 publicaciones/día. Se ignora.")
             break
             
-        # Filtrar todos los días que tengan ese nivel mínimo
+        # Filtrar todos los días que tengan ese nivel mínimo de carga
         dias_optimos = [dia for dia, carga in cargas_por_dia.items() if carga == min_carga]
         
         from datetime import datetime
@@ -105,24 +106,21 @@ def main():
         horas_libres = [str(h).zfill(2) for h in range(24) if str(h).zfill(2) not in calendario_horas_ocupadas[dia_elegido]]
         hora_elegida = random.choice(horas_libres)
         
-        # Actualizar cargas matemáticas para la siguiente iteración
+        # Actualizar cargas para la siguiente iteración del bucle
         calendario_horas_ocupadas[dia_elegido].append(hora_elegida)
         
-        # Reescribir el archivo de Obsidian inyectando el frontmatter
+        # Reescribir el archivo inyectando publish_day y publish_time
+        # NO toca el campo type — eso lo pone el usuario manualmente
         with open(archivo, "r", encoding="utf-8") as f:
             post = frontmatter.load(f)
             
         post.metadata['publish_day'] = dia_elegido
         post.metadata['publish_time'] = f"{hora_elegida}:00"
-
-        # Asegurar que tiene tipo asignado (default: aforismo)
-        if 'type' not in post.metadata:
-            post.metadata['type'] = 'aforismo'
         
         with open(archivo, "w", encoding="utf-8") as f:
             f.write(frontmatter.dumps(post))
             
-        print(f"-> Archivo '{os.path.basename(archivo)}' asignado cíclicamente para el {dia_elegido} a las {hora_elegida}:00 h.")
+        print(f"-> '{os.path.basename(archivo)}' programado para el {dia_elegido} a las {hora_elegida}:00 h.")
 
 if __name__ == "__main__":
     main()

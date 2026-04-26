@@ -174,13 +174,6 @@ export async function GET(request: Request) {
       opacity: 0.6;
       letter-spacing: 0.05em;
     }
-    .logo-container {
-      margin-top: 40px;
-      margin-bottom: 15px;
-    }
-    /* icon-light: icono negro para modo luz. icon-dark: icono blanco para modo oscuro (por convencion del web) */
-    .logo-dark { display: none; }
-    .logo-light { display: inline-block; width: 40px; height: 40px; }
     .footer {
       margin-top: 40px;
       font-size: 0.8rem;
@@ -203,8 +196,6 @@ export async function GET(request: Request) {
       hr.line-separator {
         border-top: 1px solid #ffffff !important;
       }
-      .logo-light { display: none !important; }
-      .logo-dark { display: inline-block !important; width: 40px; height: 40px; }
       .footer a { color: #aaa !important; }
     }
   </style>
@@ -214,9 +205,7 @@ export async function GET(request: Request) {
     ${aforismosHtml}
     ${dietarioHtml}
     
-    <div class="logo-container">
-      <hr class="line-separator" />
-    </div>
+    <hr class="line-separator" />
 
     <div class="signature">
       <a href="https://jcdemerez.com" style="text-decoration: none; color: inherit;">JC de Merez</a>

@@ -3,8 +3,12 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import fs from 'fs';
 import path from 'path';
+import { buildNewsletterHtml } from '../preview/route';
 
-// Utilizaremos require nativo o import temporal para ignorar advertencias de typescript si no tenemos frontmatter en npm (usando expresiones regulares como fallback)
+interface RecentEntry {
+  content: string;
+  type: 'aforismo' | 'dietario';
+}
 
 function getPast7Days() {
   const days = [];
@@ -16,11 +20,6 @@ function getPast7Days() {
     days.push(`${dayStr}-${monthStr}`);
   }
   return days;
-}
-
-interface RecentEntry {
-  content: string;
-  type: 'aforismo' | 'dietario';
 }
 
 export async function GET(request: Request) {
@@ -44,7 +43,6 @@ export async function GET(request: Request) {
         const filePath = path.join(vaultPath, file);
         const fileContents = fs.readFileSync(filePath, 'utf8');
 
-        // Parseo ligero (regex) ya que python-frontmatter no funciona en Node.js, y no instalamos gray-matter
         const frontmatterMatch = fileContents.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
         let publishDay: string | null = null;
         let entryType: 'aforismo' | 'dietario' = 'aforismo';
@@ -52,13 +50,9 @@ export async function GET(request: Request) {
         if (frontmatterMatch) {
           const fm = frontmatterMatch[1];
           const dayMatch = fm.match(/publish_day:\s*['"]?(\d{2}-\d{2})['"]?/);
-          if (dayMatch) {
-            publishDay = dayMatch[1];
-          }
-          const typeMatch = fm.match(/^type:\s*['"]?(aforismo|dietario)['"]?\s*$/im);
-          if (typeMatch) {
-            entryType = typeMatch[1] as 'aforismo' | 'dietario';
-          }
+          if (dayMatch) publishDay = dayMatch[1];
+          const typeMatch = fm.match(/type:\s*['"]?(aforismo|dietario)['"]?/);
+          if (typeMatch) entryType = typeMatch[1] as 'aforismo' | 'dietario';
         }
 
         if (publishDay && past7Days.includes(publishDay)) {
@@ -71,13 +65,11 @@ export async function GET(request: Request) {
     }
 
     if (recentEntries.length === 0) {
-      // Si no hay ninguno reciente (últimos 7 días), no enviamos ningún correo y el cron finaliza silenciosamente.
       return NextResponse.json({ message: 'No hay contenido reciente para enviar' });
     }
 
-    // Separar por tipo
-    const recentAphorisms = recentEntries.filter(e => e.type === 'aforismo');
-    const recentDietario = recentEntries.filter(e => e.type === 'dietario');
+    // Generar HTML — mismo diseño que el preview, sin el banner
+    const emailHtml = buildNewsletterHtml(recentEntries, { preview: false });
 
     // Obtener suscriptores
     const client = new Client({ 
@@ -92,137 +84,12 @@ export async function GET(request: Request) {
       return NextResponse.json({ message: 'No hay suscriptores' });
     }
 
-    // Construir el asunto dinámico — aforismo completo, el gestor de correo trunca
-    const previewText = recentAphorisms.length > 0 ? recentAphorisms[0].content : (recentDietario[0]?.content || '');
-    const subjectLine = previewText.replace(/;/g, ',').replace(/\n/g, ' ').slice(0, 200) + '...';
-
-    // Generar secciones HTML
-    const aforismosHtml = recentAphorisms.length > 0 ? `
-    <h1 class="title"><a href="https://jcdemerez.com/aforismos" style="text-decoration: none; color: inherit;">Aforismos</a></h1>
-    <hr class="line-separator" />
-    
-    ${recentAphorisms.map((entry, idx) => `
-      <div class="aphorism">
-        ${entry.content.split(';').join('<span style="display:block;margin-bottom:6px;"></span>')}
-      </div>
-      ${idx < recentAphorisms.length - 1 ? '<div class="separator">~</div>' : ''}
-    `).join('')}` : '';
-
-    const dietarioHtml = recentDietario.length > 0 ? `
-    ${recentAphorisms.length > 0 ? '<hr class="line-separator" />' : ''}
-    <h1 class="title"><a href="https://jcdemerez.com/dietario" style="text-decoration: none; color: inherit;">Dietario</a></h1>
-    <hr class="line-separator" />
-    
-    ${recentDietario.map((entry, idx) => `
-      <div class="aphorism" style="line-height: 1.6;">
-        ${entry.content.split('\n\n').map(p => `<p style="margin: 0.5em 0;">${p.trim()}</p>`).join('')}
-      </div>
-      ${idx < recentDietario.length - 1 ? '<div class="separator">~</div>' : ''}
-    `).join('')}` : '';
-
-    const emailHtml = `
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Caudex&display=swap');
-    body {
-      background-color: #F5F5E8;
-      color: #111111;
-      font-family: 'Caudex', serif;
-      margin: 0;
-      padding: 40px 20px;
-      -webkit-font-smoothing: antialiased;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .title {
-      font-size: 2rem;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-      margin-top: 0;
-    }
-    .subtitle {
-      font-size: 1rem;
-      opacity: 0.8;
-      margin-bottom: 30px;
-    }
-    .aphorism {
-      font-size: 1.1rem;
-      line-height: 1.4;
-      margin-bottom: 25px;
-    }
-    .separator {
-      margin-bottom: 25px;
-      font-size: 1.2rem;
-      color: #111111;
-    }
-    hr.line-separator {
-      width: 150px;
-      border: none;
-      border-top: 1px solid #111111;
-      margin: 60px auto 60px auto;
-      opacity: 0.3;
-    }
-    .signature {
-      font-size: 1rem;
-      opacity: 0.6;
-      letter-spacing: 0.05em;
-    }
-    .footer {
-      margin-top: 40px;
-      font-size: 0.8rem;
-      color: #888;
-      font-family: sans-serif;
-    }
-    .footer a {
-      color: #888;
-      text-decoration: underline;
-    }
-    /* Soporte nativo para modo oscuro de la aplicación de correo */
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #1a1a1a !important;
-        color: #ffffff !important;
-      }
-      .separator {
-        color: #ffffff !important;
-      }
-      hr.line-separator {
-        border-top: 1px solid #ffffff !important;
-      }
-      .footer a { color: #aaa !important; }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    ${aforismosHtml}
-    ${dietarioHtml}
-    
-    <hr class="line-separator" />
-
-    <div class="signature">
-      <a href="https://jcdemerez.com" style="text-decoration: none; color: inherit;">JC de Merez</a>
-    </div>
-    
-    <div class="footer">
-      Estás recibiendo este correo porque te has suscrito a las publicaciones de JC de Merez en jcdemerez.com.<br><br>
-      <a href="https://jcdemerez.com/api/newsletter/unsubscribe?email={{EMAIL}}">Darme de baja</a>
-    </div>
-  </div>
-</body>
-</html>
-    `;
+    // Construir asunto dinámico
+    const previewText = recentEntries[0].content.replace(/;/g, ',').replace(/\n/g, ' ').slice(0, 200);
+    const subjectLine = previewText + '...';
 
     const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key');
     
-    // Preparar envíos en bloque (Batch API) para inyectar correctamente el email en los enlaces de cancelación de suscripción para cada usuario
     const chunkSize = 100;
     const allBatchResponses = [];
     
@@ -242,7 +109,7 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json({ 
-      message: `Enviados ${recentAphorisms.length} aforismos + ${recentDietario.length} entradas de dietario a ${subscribers.length} suscriptores` 
+      message: `Enviadas ${recentEntries.length} reflexiones a ${subscribers.length} suscriptores` 
     });
   } catch (error) {
     console.error('Newsletter error:', error);

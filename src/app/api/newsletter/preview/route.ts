@@ -48,10 +48,10 @@ export function buildNewsletterHtml(entries: RecentEntry[], options?: { preview?
       : entry.content.split(';').join('<span style="display:block;margin-bottom:6px;"></span>');
 
     return `
-      <div style="font-family:'Caudex',Georgia,'Times New Roman',serif;font-size:19px;line-height:1.6;margin-bottom:28px;padding:0 10px;">
+      <div style="font-family:'Caudex',Palatino,'Palatino Linotype',Georgia,serif;font-size:19px;line-height:1.6;margin-bottom:28px;padding:0 10px;">
         ${formattedContent}
       </div>
-      ${idx < shuffled.length - 1 ? '<div class="tilde-sep" style="margin-bottom:28px;font-family:\'Caudex\',Georgia,serif;font-size:21px;color:#111111;opacity:0.5;">~</div>' : ''}
+      ${idx < shuffled.length - 1 ? '<div class="tilde-sep" style="margin-bottom:28px;font-family:\'Caudex\',Palatino,Georgia,serif;font-size:21px;color:#111111;opacity:0.5;">~</div>' : ''}
     `;
   }).join('');
 
@@ -101,7 +101,7 @@ export function buildNewsletterHtml(entries: RecentEntry[], options?: { preview?
     }
   </style>
 </head>
-<body style="background-color:#F5F5E8;color:#111111;font-family:'Caudex',Georgia,'Times New Roman',serif;margin:0;padding:40px 20px;">
+<body style="background-color:#F5F5E8;color:#111111;font-family:'Caudex',Palatino,'Palatino Linotype',Georgia,serif;margin:0;padding:40px 20px;">
   ${previewBanner}
   <div style="max-width:600px;margin:0 auto;text-align:center;">
 
@@ -110,7 +110,7 @@ export function buildNewsletterHtml(entries: RecentEntry[], options?: { preview?
       <a href="https://jcdemerez.com" style="text-decoration:none;border:none;">
         <img src="https://jcdemerez.com/logo.png" alt="JC de Merez" class="header-logo" style="width:64px;height:64px;" width="64" height="64" />
       </a>
-      <div style="font-family:'Caudex',Georgia,'Times New Roman',serif;font-size:18px;opacity:0.7;letter-spacing:0.08em;margin-top:14px;">nulla die sine aphorismus</div>
+      <div style="font-family:'Caudex',Palatino,'Palatino Linotype',Georgia,serif;font-size:18px;opacity:0.7;letter-spacing:0.08em;margin-top:14px;">nulla die sine aphorismus</div>
     </div>
 
     <!-- Separator -->
@@ -122,18 +122,18 @@ export function buildNewsletterHtml(entries: RecentEntry[], options?: { preview?
     <!-- Separator -->
     <hr class="line-separator" style="width:250px;border:none;border-top:1px solid #111111;margin:55px auto;opacity:0.25;" />
 
-    <!-- SOCIAL ICONS - SVGs como data URI, funcionan en Gmail/Apple Mail/iOS -->
+    <!-- SOCIAL ICONS - SVGs hospedados en jcdemerez.com -->
     <div style="margin-bottom:20px;">
       <a href="https://x.com/jcdemerez" target="_blank" style="display:inline-block;margin:0 14px;text-decoration:none;" title="X (Twitter)">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='%23555555'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E" alt="X (Twitter)" width="24" height="24" style="vertical-align:middle;display:block;" />
+        <img src="https://jcdemerez.com/x-icon.svg" alt="X (Twitter)" width="24" height="24" style="vertical-align:middle;opacity:0.6;" />
       </a>
       <a href="mailto:jcdemerez@jcdemerez.com" style="display:inline-block;margin:0 14px;text-decoration:none;" title="Email">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none' stroke='%23555555' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='4' width='20' height='16' rx='2'/%3E%3Cpath d='M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'/%3E%3C/svg%3E" alt="Email" width="24" height="24" style="vertical-align:middle;display:block;" />
+        <img src="https://jcdemerez.com/email-icon.svg" alt="Email" width="24" height="24" style="vertical-align:middle;opacity:0.6;" />
       </a>
     </div>
 
     <!-- SIGNATURE -->
-    <div style="font-family:'Caudex',Georgia,'Times New Roman',serif;font-size:16px;opacity:0.6;letter-spacing:0.05em;">
+    <div style="font-family:'Caudex',Palatino,'Palatino Linotype',Georgia,serif;font-size:16px;opacity:0.6;letter-spacing:0.05em;">
       <a href="https://jcdemerez.com" style="text-decoration:none;color:inherit;">JC de Merez</a>
     </div>
 

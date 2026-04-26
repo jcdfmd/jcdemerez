@@ -273,12 +273,103 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
+   Sidebar Wrapper (needed for mobile overlay behavior)
+   ═══════════════════════════════════════════════ */
+.sidebar-wrapper {
+  display: contents; /* On desktop, act as if wrapper doesn't exist */
+}
+
+/* ═══════════════════════════════════════════════
+   Burger Button (hidden on desktop)
+   ═══════════════════════════════════════════════ */
+.burger-btn {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════
+   Sidebar Overlay (hidden on desktop)
+   ═══════════════════════════════════════════════ */
+.sidebar-overlay {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════
    Mobile Responsive
    ═══════════════════════════════════════════════ */
 @media (max-width: 768px) {
   body {
     flex-direction: column;
     overflow: auto;
+  }
+
+  /* ─── Burger button ─── */
+  .burger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-color);
+    border: 1px solid var(--text-primary);
+    border-radius: 6px;
+    opacity: 0.7;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: opacity 0.2s;
+    padding: 0;
+  }
+  .burger-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+  .burger-btn:hover {
+    opacity: 1;
+  }
+
+  /* ─── Sidebar overlay backdrop ─── */
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+  }
+
+  /* ─── Sidebar wrapper: hidden by default on mobile ─── */
+  .sidebar-wrapper {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85%;
+    max-width: 320px;
+    height: 100dvh;
+    z-index: 2000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+
+  /* When sidebar is toggled open */
+  .sidebar-wrapper.sidebar-mobile-open {
+    transform: translateX(0);
+  }
+
+  /* On home page — sidebar is full-screen, no burger */
+  .sidebar-wrapper.sidebar-home {
+    position: static;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    transform: none;
+    overflow-y: visible;
   }
 
   .sidebar {
@@ -289,9 +380,19 @@ body {
     padding: 5vmin 20px 4vmin;
   }
 
+  /* Full height when used as overlay */
+  .sidebar-wrapper:not(.sidebar-home) .sidebar {
+    min-height: 100dvh;
+  }
+
   .sidebar-nav {
     gap: clamp(1.4rem, 3.5vmin, 2.5rem);
     padding-top: 1vmin;
+  }
+
+  /* ─── Main content: hidden on home, full-screen otherwise ─── */
+  .main-home {
+    display: none; /* Home page has no content to show */
   }
 
   .main-content {

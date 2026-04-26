@@ -42,16 +42,41 @@ export function buildNewsletterHtml(entries: RecentEntry[], options?: { preview?
   const shuffled = shuffle(entries);
 
   const entriesHtml = shuffled.map((entry, idx) => {
-    // Aforismos usan ; como salto visual, dietario usa párrafos
-    const formattedContent = entry.type === 'dietario'
-      ? entry.content.split('\n\n').map(p => `<p style="margin: 0.5em 0;">${p.trim()}</p>`).join('')
-      : entry.content.split(';').join('<span style="display:block;margin-bottom:6px;"></span>');
+    let formattedContent: string;
+
+    if (entry.type === 'dietario') {
+      // Dietario: texto largo, párrafos, alineado a la izquierda
+      const paragraphs = entry.content.split('\n\n').map(p => p.trim()).filter(p => p.length > 0);
+      formattedContent = `
+        <div style="font-family:'Caudex',Palatino,'Palatino Linotype',Georgia,serif;font-size:17px;line-height:1.75;margin-bottom:28px;padding:0 20px;text-align:left;">
+          ${paragraphs.map(p => `<p style="margin:0.6em 0;">${p}</p>`).join('')}
+        </div>`;
+    } else {
+      // Aforismo: split por ;, cada segmento centrado con max-width balanceado
+      const segments = entry.content.split(';').map(s => s.trim()).filter(s => s.length > 0);
+      const segmentsHtml = segments.map((seg, segIdx) => {
+        const text = segIdx < segments.length - 1 ? seg + ';' : seg;
+        // Heuristica de balanceo: ~9px por caracter a 19px font-size
+        const estimatedWidth = text.length * 9;
+        const containerWidth = 540;
+        let maxWidth = '100%';
+        if (estimatedWidth > containerWidth) {
+          const estimatedLines = Math.ceil(estimatedWidth / containerWidth);
+          const balancedWidth = Math.ceil(estimatedWidth / estimatedLines) + 20;
+          maxWidth = Math.min(balancedWidth, containerWidth) + 'px';
+        }
+        return `<div style="max-width:${maxWidth};margin:0 auto;text-align:center;margin-bottom:6px;">${text}</div>`;
+      }).join('');
+
+      formattedContent = `
+        <div style="font-family:'Caudex',Palatino,'Palatino Linotype',Georgia,serif;font-size:19px;line-height:1.6;margin-bottom:28px;padding:0 10px;text-align:center;">
+          ${segmentsHtml}
+        </div>`;
+    }
 
     return `
-      <div style="font-family:'Caudex',Palatino,'Palatino Linotype',Georgia,serif;font-size:19px;line-height:1.6;margin-bottom:28px;padding:0 10px;">
-        ${formattedContent}
-      </div>
-      ${idx < shuffled.length - 1 ? '<div class="tilde-sep" style="margin-bottom:28px;font-family:\'Caudex\',Palatino,Georgia,serif;font-size:21px;color:#111111;opacity:0.5;">~</div>' : ''}
+      ${formattedContent}
+      ${idx < shuffled.length - 1 ? '<div class="tilde-sep" style="margin-bottom:28px;font-family:\'Caudex\',Palatino,Georgia,serif;font-size:21px;color:#111111;opacity:0.5;text-align:center;">~</div>' : ''}
     `;
   }).join('');
 

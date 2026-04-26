@@ -48,10 +48,10 @@ export function buildNewsletterHtml(entries: RecentEntry[], options?: { preview?
       : entry.content.split(';').join('<span style="display:block;margin-bottom:6px;"></span>');
 
     return `
-      <div class="entry">
+      <div style="font-family:'Caudex',Georgia,'Times New Roman',serif;font-size:19px;line-height:1.6;margin-bottom:28px;padding:0 10px;">
         ${formattedContent}
       </div>
-      ${idx < shuffled.length - 1 ? '<div class="separator">~</div>' : ''}
+      ${idx < shuffled.length - 1 ? '<div class="tilde-sep" style="margin-bottom:28px;font-family:\'Caudex\',Georgia,serif;font-size:21px;color:#111111;opacity:0.5;">~</div>' : ''}
     `;
   }).join('');
 
@@ -67,103 +67,15 @@ export function buildNewsletterHtml(entries: RecentEntry[], options?: { preview?
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Caudex&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Caudex&display=swap');
-
     body {
       background-color: #F5F5E8;
       color: #111111;
-      font-family: 'Caudex', serif;
+      font-family: 'Caudex', Georgia, 'Times New Roman', serif;
       margin: 0;
       padding: 40px 20px;
       -webkit-font-smoothing: antialiased;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    /* ── Header: Logo + Subtitle ── */
-    .header {
-      padding-top: 20px;
-      padding-bottom: 0;
-    }
-    .header-logo {
-      width: 48px;
-      height: 48px;
-    }
-
-    .header-subtitle {
-      font-size: 1.1rem;
-      opacity: 0.7;
-      letter-spacing: 0.08em;
-      margin-top: 14px;
-    }
-
-    /* ── Separators ── */
-    hr.line-separator {
-      width: 250px;
-      border: none;
-      border-top: 1px solid #111111;
-      margin: 55px auto;
-      opacity: 0.25;
-    }
-
-    /* ── Entries ── */
-    .entry {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin-bottom: 28px;
-      padding: 0 10px;
-    }
-    .separator {
-      margin-bottom: 28px;
-      font-size: 1.3rem;
-      color: #111111;
-      opacity: 0.5;
-    }
-
-    /* ── Social Icons ── */
-    .social {
-      margin-bottom: 20px;
-    }
-    .social a {
-      display: inline-block;
-      margin: 0 14px;
-      color: #111111;
-      text-decoration: none;
-      opacity: 0.5;
-      transition: opacity 0.2s;
-    }
-    .social-icon {
-      width: 22px;
-      height: 22px;
-      vertical-align: middle;
-    }
-
-    /* ── Signature ── */
-    .signature {
-      font-size: 1rem;
-      opacity: 0.6;
-      letter-spacing: 0.05em;
-    }
-    .signature a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* ── Footer ── */
-    .footer {
-      margin-top: 40px;
-      font-size: 0.75rem;
-      color: #888;
-      font-family: -apple-system, sans-serif;
-      line-height: 1.5;
-    }
-    .footer a {
-      color: #888;
-      text-decoration: underline;
     }
 
     /* ── Dark Mode ── */
@@ -172,69 +84,59 @@ export function buildNewsletterHtml(entries: RecentEntry[], options?: { preview?
         background-color: #1a1a1a !important;
         color: #e8e8e8 !important;
       }
-      hr.line-separator {
+      .line-separator {
         border-top-color: #e8e8e8 !important;
       }
-      .separator {
+      .tilde-sep {
         color: #e8e8e8 !important;
       }
       .header-logo {
         filter: invert(1) !important;
       }
-      .social-icon {
-        filter: invert(1) !important;
+      .social-link {
+        color: #e8e8e8 !important;
       }
-      .footer { color: #777 !important; }
-      .footer a { color: #999 !important; }
+      .footer-text { color: #777 !important; }
+      .footer-text a { color: #999 !important; }
     }
   </style>
 </head>
-<body>
+<body style="background-color:#F5F5E8;color:#111111;font-family:'Caudex',Georgia,'Times New Roman',serif;margin:0;padding:40px 20px;">
   ${previewBanner}
-  <div class="container">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
 
     <!-- HEADER: Logo + Subtitle -->
-    <div class="header">
+    <div style="padding-top:20px;">
       <a href="https://jcdemerez.com" style="text-decoration:none;border:none;">
-        <img src="https://jcdemerez.com/logo.png" alt="JC de Merez" class="header-logo" />
+        <img src="https://jcdemerez.com/logo.png" alt="JC de Merez" class="header-logo" style="width:64px;height:64px;" width="64" height="64" />
       </a>
-      <div class="header-subtitle">nulla die sine aphorismus</div>
+      <div style="font-family:'Caudex',Georgia,'Times New Roman',serif;font-size:18px;opacity:0.7;letter-spacing:0.08em;margin-top:14px;">nulla die sine aphorismus</div>
     </div>
 
     <!-- Separator -->
-    <hr class="line-separator" />
+    <hr class="line-separator" style="width:250px;border:none;border-top:1px solid #111111;margin:55px auto;opacity:0.25;" />
 
     <!-- ENTRIES (aforismos + dietario mezclados) -->
     ${entriesHtml}
 
     <!-- Separator -->
-    <hr class="line-separator" />
+    <hr class="line-separator" style="width:250px;border:none;border-top:1px solid #111111;margin:55px auto;opacity:0.25;" />
 
     <!-- SOCIAL ICONS -->
-    <div class="social">
-      <a href="https://x.com/jcdemerez" target="_blank" title="X (Twitter)">
-        <!--[if mso]><img src="https://jcdemerez.com/x-icon.png" width="22" height="22" /><![endif]-->
-        <!--[if !mso]><!-->
-        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        <!--<![endif]-->
-      </a>
-      <a href="mailto:jcdemerez@jcdemerez.com" title="Email">
-        <!--[if mso]><img src="https://jcdemerez.com/email-icon.png" width="22" height="22" /><![endif]-->
-        <!--[if !mso]><!-->
-        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        <!--<![endif]-->
-      </a>
+    <div style="margin-bottom:20px;">
+      <a href="https://x.com/jcdemerez" target="_blank" class="social-link" style="display:inline-block;margin:0 14px;color:#111111;text-decoration:none;opacity:0.55;font-family:Arial,sans-serif;font-size:20px;font-weight:bold;" title="X (Twitter)">X</a>
+      <a href="mailto:jcdemerez@jcdemerez.com" class="social-link" style="display:inline-block;margin:0 14px;color:#111111;text-decoration:none;opacity:0.55;font-size:24px;" title="Email">✉</a>
     </div>
 
     <!-- SIGNATURE -->
-    <div class="signature">
-      <a href="https://jcdemerez.com">JC de Merez</a>
+    <div style="font-family:'Caudex',Georgia,'Times New Roman',serif;font-size:16px;opacity:0.6;letter-spacing:0.05em;">
+      <a href="https://jcdemerez.com" style="text-decoration:none;color:inherit;">JC de Merez</a>
     </div>
 
     <!-- FOOTER -->
-    <div class="footer">
+    <div class="footer-text" style="margin-top:40px;font-size:12px;color:#888;font-family:-apple-system,Arial,sans-serif;line-height:1.5;">
       Estás recibiendo este correo porque te has suscrito en jcdemerez.com.<br><br>
-      <a href="https://jcdemerez.com/api/newsletter/unsubscribe?email={{EMAIL}}">Darme de baja</a>
+      <a href="https://jcdemerez.com/api/newsletter/unsubscribe?email={{EMAIL}}" style="color:#888;text-decoration:underline;">Darme de baja</a>
     </div>
 
   </div>

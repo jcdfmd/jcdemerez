@@ -42,11 +42,19 @@ def main():
             with open(archivo, "r", encoding="utf-8") as f:
                 post = frontmatter.load(f)
             
+            # Si ya tiene publish_day y publish_time, solo verificar que tenga type
             if 'publish_day' in post.metadata and 'publish_time' in post.metadata:
                 dia_asignado = post.metadata['publish_day']
                 hora_asignada = str(post.metadata['publish_time']).split(':')[0].zfill(2)
                 if dia_asignado in calendario_horas_ocupadas:
                     calendario_horas_ocupadas[dia_asignado].append(hora_asignada)
+                
+                # Asegurar que archivos ya programados tengan type
+                if 'type' not in post.metadata:
+                    post.metadata['type'] = 'aforismo'
+                    with open(archivo, "w", encoding="utf-8") as f:
+                        f.write(frontmatter.dumps(post))
+                    print(f"  [type] Añadido type: aforismo a '{os.path.basename(archivo)}'")
             else:
                 archivos_sin_asignar.append(archivo)
         except Exception as e:

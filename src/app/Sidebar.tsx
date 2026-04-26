@@ -16,7 +16,7 @@ export default function Sidebar() {
   const getActiveSection = () => {
     if (pathname.startsWith('/aforismos') || pathname.startsWith('/adagium')) return 'aforismos';
     if (pathname.startsWith('/dietario')) return 'dietario';
-    if (pathname.startsWith('/balanza-de-minerva')) return 'balanza';
+    if (pathname.startsWith('/la-balanza-de-minerva')) return 'balanza';
     if (pathname.startsWith('/biblioteca')) return 'biblioteca';
     if (pathname.startsWith('/acerca-de')) return 'acerca';
     return null;
@@ -63,7 +63,7 @@ export default function Sidebar() {
         <div className="sidebar-nav-mini-separator" />
 
         <a
-          href="/balanza-de-minerva"
+          href="/la-balanza-de-minerva"
           className={`sidebar-nav-item ${activeSection === 'balanza' ? 'active' : ''}`}
         >
           <span className="nav-title">La Balanza de Minerva</span>
@@ -79,7 +79,7 @@ export default function Sidebar() {
         </a>
       </nav>
 
-      {/* ─── Bottom section: Acerca de + Actualizado a ─── */}
+      {/* ─── Bottom section: Acerca de ─── */}
       <div className="sidebar-bottom">
         <a
           href="/acerca-de"
@@ -87,11 +87,6 @@ export default function Sidebar() {
         >
           <span className="nav-title">Acerca de</span>
         </a>
-
-        {/* Actualizado a... */}
-        <div className="sidebar-update">
-          Actualizado a {lastUpdate}
-        </div>
       </div>
 
       {/* ─── Bottom separator ─── */}
@@ -134,6 +129,11 @@ export default function Sidebar() {
 
         {/* Signature */}
         <div className="sidebar-signature">JC de Merez</div>
+      </div>
+
+      {/* Actualizado a... (al final del todo) */}
+      <div className="sidebar-update">
+        Actualizado a {lastUpdate}
       </div>
     </aside>
   );

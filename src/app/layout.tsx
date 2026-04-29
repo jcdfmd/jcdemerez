@@ -7,9 +7,18 @@ import LayoutShell from './LayoutShell';
 export const metadata: Metadata = {
   title: 'JC de Merez',
   description: 'Nulla die sine aphorismus. Página personal de JC de Merez.',
-  icons: {
-    icon: '/favicon.png',
-  },
+  icons: [
+    {
+      media: '(prefers-color-scheme: light)',
+      url: '/icon-light.png',
+      href: '/icon-light.png',
+    },
+    {
+      media: '(prefers-color-scheme: dark)',
+      url: '/icon-dark.png',
+      href: '/icon-dark.png',
+    },
+  ],
   openGraph: {
     title: 'JC de Merez',
     description: 'Nulla die sine aphorismus.',

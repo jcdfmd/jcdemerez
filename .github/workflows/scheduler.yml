@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'content/vault/**.md'
+  schedule:
+    - cron: '0 3 * * *' # Ejecutar también una vez al día automáticamente
 
 jobs:
   assign_schedule:
@@ -24,6 +26,9 @@ jobs:
       - name: Instalar Dependencias (Frontmatter Parser)
         run: pip install python-frontmatter
 
+      - name: Ejecutar Renombrado Automatizado
+        run: python .github/scripts/rename_untitled.py
+
       - name: Ejecutar Inteligencia de Asignación Cíclica
         run: python .github/scripts/assign_schedule.py
 
@@ -33,8 +38,8 @@ jobs:
           git config --local user.name "GitHub Action Bot"
           # Si algun archivo cambió, forzamos un add y un commit
           if [[ `git status --porcelain` ]]; then
-            git add content/vault/
-            git commit -m "bot: auto-programadas nuevas reflexiones en calendario cíclico"
+            git add -A content/vault/
+            git commit -m "bot: renombrado de notas Untitled y asignación cíclica"
             git push
           else
             echo "No ha habido cambios en los archivos."

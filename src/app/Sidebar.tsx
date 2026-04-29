@@ -14,7 +14,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   
   const getActiveSection = () => {
-    if (pathname.startsWith('/aforismos') || pathname.startsWith('/adagium')) return 'aforismos';
+    if (pathname.startsWith('/aforismos')) return 'aforismos';
     if (pathname.startsWith('/dietario')) return 'dietario';
     if (pathname.startsWith('/la-balanza-de-minerva')) return 'balanza';
     if (pathname.startsWith('/biblioteca')) return 'biblioteca';

@@ -1,4 +1,4 @@
-import AdagiumClient from '../adagium/AdagiumClient';
+import AforismoClient from '@/components/AforismoClient';
 import { getAphorisms, Aphorism } from '@/lib/aphorisms';
 
 export const dynamic = 'force-dynamic';
@@ -19,7 +19,7 @@ export default async function AforismoPage() {
   }
 
   return (
-    <AdagiumClient 
+    <AforismoClient 
       initialAphorism={initialAphorism} 
       todayCount={data.todayCount} 
     />

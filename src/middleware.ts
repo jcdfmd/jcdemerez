@@ -4,11 +4,11 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   
-  // Redirect adagium.es (y www.adagium.es) → jcdemerez.com/adagium
+  // Redirect adagium.es (y www.adagium.es) → jcdemerez.com/aforismos
   if (hostname.includes('adagium.es')) {
     const url = new URL(request.url);
-    // Cualquier ruta en adagium.es se redirige a jcdemerez.com/adagium + la ruta original
-    // Ej: adagium.es/ → jcdemerez.com/adagium
+    // Cualquier ruta en adagium.es se redirige a jcdemerez.com/aforismos + la ruta original
+    // Ej: adagium.es/ → jcdemerez.com/aforismos
     // Ej: adagium.es/api/newsletter/unsubscribe?email=... → jcdemerez.com/api/newsletter/unsubscribe?email=...
     const path = url.pathname;
     
@@ -20,9 +20,9 @@ export function middleware(request: NextRequest) {
       );
     }
     
-    // Todo lo demás va a /adagium
+    // Todo lo demás va a /aforismos
     return NextResponse.redirect(
-      new URL(`/adagium${url.search}`, 'https://jcdemerez.com'),
+      new URL(`/aforismos${url.search}`, 'https://jcdemerez.com'),
       301
     );
   }
@@ -33,6 +33,6 @@ export function middleware(request: NextRequest) {
 // Aplicar middleware a todas las rutas excepto assets estáticos
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.png|icon-dark.png|icon-light.png|jcdm-logo.png|logo.png|ingest).*)',
+    '/((?!_next/static|_next/image|favicon-jcdm-dark.png|favicon-jcdm-light.png|jcdm-logo.png|ingest).*)',
   ],
 };

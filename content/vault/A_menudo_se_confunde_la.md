@@ -1,6 +1,8 @@
 ---
-type: aforismo
 created: 2026-04-29T17:41
+publish_day: 15-01
+publish_time: 08:00
+type: aforismo
 updated: 2026-04-29T17:41
 ---
 

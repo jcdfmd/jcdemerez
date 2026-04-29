@@ -33,6 +33,6 @@ export function middleware(request: NextRequest) {
 // Aplicar middleware a todas las rutas excepto assets estáticos
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon-jcdm-dark.png|favicon-jcdm-light.png|jcdm-logo.png|ingest).*)',
+    '/((?!_next/static|_next/image|favicon-jcdm-dark.png|favicon-jcdm-light.png|jcdm-logo.png|logo.png|ingest).*)',
   ],
 };

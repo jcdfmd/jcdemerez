@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   icons: [
     {
       media: '(prefers-color-scheme: light)',
-      url: '/favicon-light.png',
-      href: '/favicon-light.png',
+      url: '/favicon-jcdm-light.png',
+      href: '/favicon-jcdm-light.png',
     },
     {
       media: '(prefers-color-scheme: dark)',
-      url: '/favicon-dark.png',
-      href: '/favicon-dark.png',
+      url: '/favicon-jcdm-dark.png',
+      href: '/favicon-jcdm-dark.png',
     },
   ],
   openGraph: {
